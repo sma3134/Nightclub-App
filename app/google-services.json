@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "496042642871",
+    "project_id": "nightclub-bd3cc",
+    "storage_bucket": "nightclub-bd3cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496042642871:android:836ff94362ea382c612c32",
+        "android_client_info": {
+          "package_name": "group_17.nightclubapp.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496042642871-gih6jsv6hdvmnidb6223tolcs99o50qk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuCByhyk3usuSWRefU8nUnM_eOvUuJuWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "496042642871-gih6jsv6hdvmnidb6223tolcs99o50qk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

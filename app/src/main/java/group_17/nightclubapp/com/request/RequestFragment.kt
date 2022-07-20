@@ -5,56 +5,61 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import group_17.nightclubapp.com.R
+import group_17.nightclubapp.com.request.model.DAORequest
+import group_17.nightclubapp.com.request.model.Request
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RequestFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class RequestFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class RequestFragment : Fragment(), ValueEventListener {
+    private lateinit var submitButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_request, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_request, container, false)
+        val daoRequest = DAORequest()
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RequestFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RequestFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        submitButton = view.findViewById(R.id.submitRequestBtn)
+
+        //submit to database
+        submitButton.setOnClickListener {
+            val clubId = context?.getString(R.string.BarNone)?.toLong()
+            val req = Request("Hit em up Tupac", Request.SONG_REQUEST, clubId, Calendar.getInstance().timeInMillis)
+            if (req.isValid()) {
+                daoRequest.add(req).addOnSuccessListener {
+                    Toast.makeText(context, "Sent to DJ", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    Toast.makeText(context, "Not Sent to DJ", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        //get requests will only fire
+        daoRequest.getRequests().addValueEventListener(this)
+
+
+        return view
+    }
+
+    override fun onDataChange(snapshot: DataSnapshot) {
+        snapshot.children.forEach {
+            val req = it.getValue(Request::class.java)
+            if (req != null) {
+                if (req.isValid()) {
+                    println("debug: Request: ${req.request}"  )
+                }
+            }
+        }
+    }
+
+    override fun onCancelled(error: DatabaseError) {
+
     }
 }
