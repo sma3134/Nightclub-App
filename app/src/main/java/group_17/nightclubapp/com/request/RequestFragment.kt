@@ -11,6 +11,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import group_17.nightclubapp.com.R
+import group_17.nightclubapp.com.contact.model.Club
+import group_17.nightclubapp.com.contact.model.DAOClub
 import group_17.nightclubapp.com.request.model.DAORequest
 import group_17.nightclubapp.com.request.model.Request
 import java.util.*
@@ -30,8 +32,8 @@ class RequestFragment : Fragment(), ValueEventListener {
 
         //submit to database
         submitButton.setOnClickListener {
-            val clubId = context?.getString(R.string.BarNone)?.toLong()
-            val req = Request("Hit em up Tupac", Request.SONG_REQUEST, clubId, Calendar.getInstance().timeInMillis)
+            val clubId = Club.BARNONE
+            val req = Request("Hi its my girlfriend Janes birthday", Request.ANNOUNCEMENT_REQUEST, clubId, Calendar.getInstance().timeInMillis)
             if (req.isValid()) {
                 daoRequest.add(req).addOnSuccessListener {
                     Toast.makeText(context, "Sent to DJ", Toast.LENGTH_SHORT).show()
@@ -41,7 +43,7 @@ class RequestFragment : Fragment(), ValueEventListener {
             }
         }
 
-        //get requests will only fire
+        //get requests
         daoRequest.getRequests().addValueEventListener(this)
 
 
