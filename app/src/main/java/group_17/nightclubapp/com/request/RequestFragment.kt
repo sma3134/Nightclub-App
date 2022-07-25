@@ -1,5 +1,6 @@
 package group_17.nightclubapp.com.request
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.google.firebase.database.ValueEventListener
 import group_17.nightclubapp.com.R
 import group_17.nightclubapp.com.contact.model.Club
 import group_17.nightclubapp.com.contact.model.DAOClub
+import group_17.nightclubapp.com.login.LogIn
 import group_17.nightclubapp.com.request.model.DAORequest
 import group_17.nightclubapp.com.request.model.Request
 import java.util.*
@@ -32,15 +34,17 @@ class RequestFragment : Fragment(), ValueEventListener {
 
         //submit to database
         submitButton.setOnClickListener {
-            val clubId = Club.BARNONE
-            val req = Request("Hi its my girlfriend Janes birthday", Request.ANNOUNCEMENT_REQUEST, clubId, Calendar.getInstance().timeInMillis)
-            if (req.isValid()) {
-                daoRequest.add(req).addOnSuccessListener {
-                    Toast.makeText(context, "Sent to DJ", Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener {
-                    Toast.makeText(context, "Not Sent to DJ", Toast.LENGTH_SHORT).show()
-                }
-            }
+            val intent = Intent(requireActivity(), LogIn::class.java)
+            startActivity(intent)
+//            val clubId = Club.BARNONE
+//            val req = Request("Hi its my girlfriend Janes birthday", Request.ANNOUNCEMENT_REQUEST, clubId, Calendar.getInstance().timeInMillis)
+//            if (req.isValid()) {
+//                daoRequest.add(req).addOnSuccessListener {
+//                    Toast.makeText(context, "Sent to DJ", Toast.LENGTH_SHORT).show()
+//                }.addOnFailureListener {
+//                    Toast.makeText(context, "Not Sent to DJ", Toast.LENGTH_SHORT).show()
+//                }
+//            }
         }
 
         //get requests
