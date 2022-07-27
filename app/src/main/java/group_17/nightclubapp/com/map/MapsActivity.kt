@@ -1,17 +1,14 @@
 package group_17.nightclubapp.com.map
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,8 +21,8 @@ import com.google.android.libraries.places.api.model.Place
 import group_17.nightclubapp.com.MainActivity
 import group_17.nightclubapp.com.R
 import group_17.nightclubapp.com.databinding.ActivityMapsBinding
-import group_17.nightclubapp.com.home.HomeFragment
-import org.w3c.dom.Text
+import java.time.LocalDate
+import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -86,17 +83,40 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             lateinit var place: place
             override fun onMarkerClick(marker: Marker): Boolean {
                 card_view.visibility = View.VISIBLE
-                var index = markerList.indexOf(marker.tag)
-                if (index!=-1) {
+                val index = markerList.indexOf(marker.tag)
+                if (index != -1) {
                     place = placeList[index]
                     val name = findViewById<TextView>(R.id.placeName)
                     val rate = findViewById<RatingBar>(R.id.placeRating)
                     val address = findViewById<TextView>(R.id.placeAddress)
                     val phone = findViewById<TextView>(R.id.placePhone)
+                    val hours = findViewById<TextView>(R.id.placeHours)
                     name.text = place.Name
-                    rate.rating = place.Rating.toFloat()
                     address.text = place.Address
                     phone.text = place.Phone
+
+                    val rating = place.Rating?.toFloat()
+                    if (rating != null) {
+                        rate.rating = rating
+                        rate.visibility = View.VISIBLE
+                    } else {
+                        rate.visibility = View.GONE
+                    }
+
+                    val dayOfWeek = LocalDate.now().dayOfWeek.name
+                    place.OpeningH?.weekdayText?.forEach {
+                        if (it.contains(dayOfWeek, true)) {
+                            if (it.contains("closed", true)) {
+                                hours.text = resources.getString(R.string.closed_today)
+                                hours.setTextColor(resources.getColor(R.color.red))
+                            } else if (it.contains(":")) {
+                                hours.text = resources.getString(R.string.open_today_from,
+                                             it.substringAfter(": "))
+                                hours.setTextColor(resources.getColor(R.color.green))
+                            }
+                        }
+                    }
+
                 }
                 return false
             }

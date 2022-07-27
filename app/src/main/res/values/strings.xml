@@ -24,5 +24,8 @@
     <string name="are_you_a_club_employee_n_sign_in_here_to_view_your_clubs_info">Are you a club employee?\n Sign in here to view your clubs info.</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="go">GO!</string>
+    <string name="closed_today">Closed Today</string>
+    <string name="open_today_from">Open Today From %1$s</string>
+
 
 </resources>

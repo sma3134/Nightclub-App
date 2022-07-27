@@ -47,6 +47,14 @@
                     android:layout_gravity="center_horizontal"
                     android:theme="@style/RatingBar"/>
                 <TextView
+                    android:id="@+id/placeHours"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="4dp"
+                    tools:text="Hours:"/>
+                <TextView
                     android:id="@+id/placeAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
