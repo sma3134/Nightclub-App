@@ -1,35 +1,60 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:allowDividerBelow="true"
+    >
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory
+        app:allowDividerBelow="false"
+        app:iconSpaceReserved="false"
+        app:title="@string/account_header">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
+        <Preference
+            app:summary="Move to management page"
+            app:title="Manage"
+            app:allowDividerBelow="true"
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            app:key="manage"
+            >
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="group_17.nightclubapp.com"
+                android:targetClass="group_17.nightclubapp.com.login.LogIn" />
+        </Preference>
         <ListPreference
             app:defaultValue="reply"
             app:entries="@array/reply_entries"
             app:entryValues="@array/reply_values"
+            app:iconSpaceReserved="false"
             app:key="reply"
             app:title="@string/reply_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory app:title="@string/empty_header"
+        app:iconSpaceReserved="false">
 
         <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
             app:key="sync"
             app:title="@string/sync_title" />
 
         <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
             app:dependency="sync"
             app:key="attachment"
             app:summaryOff="@string/attachment_summary_off"
             app:summaryOn="@string/attachment_summary_on"
             app:title="@string/attachment_title" />
-
+        <Preference
+            app:summary="Version:1.0.0"
+            app:title="Version"
+            app:allowDividerBelow="true"
+            app:iconSpaceReserved="false"
+            app:key="version"
+            >
+        </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>
