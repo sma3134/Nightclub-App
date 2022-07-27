@@ -5,9 +5,12 @@
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="account_header">Profile</string>
+    <string name="empty_header">Info</string>
 
+
+    <string name="profile_title">User Profile</string>
+    <string name="profile_summary">View use profile</string>
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
