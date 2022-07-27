@@ -76,8 +76,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         MapsViewModel.getPlaceData()//API request
-        MapsViewModel.data.observe(this){
-            setMarker(it)
+        for (place in MapsViewModel.data) {
+            place.observe(this){
+                setMarker(it)
+            }
         }
 
         mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {

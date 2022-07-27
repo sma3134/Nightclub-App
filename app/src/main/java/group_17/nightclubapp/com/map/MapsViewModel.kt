@@ -18,10 +18,11 @@ import java.lang.Thread.sleep
 
 class MapsViewModel(application: Application) : AndroidViewModel(application) {
     lateinit var placesClient: PlacesClient
-    lateinit var data: LiveData<Place>
+    val data = ArrayList<LiveData<Place>>()
     val context = getApplication<Application>().applicationContext
+    val IDList = ArrayList<String>()
 
-    //place IDs will be obtained from firebase DB later
+
     val placeID_BarNone = Club.BARNONE
     val placeID_Aura = Club.AURA
     val placeID_celebrities = Club.CELEBRITIES
@@ -31,23 +32,29 @@ class MapsViewModel(application: Application) : AndroidViewModel(application) {
         Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG, Place.Field.OPENING_HOURS, Place.Field.BUSINESS_STATUS,
         Place.Field.RATING, Place.Field.PHONE_NUMBER, Place.Field.PHOTO_METADATAS)
 
-    val request = FetchPlaceRequest.newInstance(placeID_BarNone, placeFields)
+
 
     //API call function
-    fun getPlaceData(){
-        val _data = MutableLiveData<Place>().apply {
-            Places.initialize(context, BuildConfig.MAPS_API_KEY)
-            placesClient = Places.createClient(context)
-            placesClient.fetchPlace(request)
-                .addOnSuccessListener { response: FetchPlaceResponse ->
-                    value = response.place
-                }.addOnFailureListener { exception: Exception ->
-                    if (exception is ApiException) {
-                        val statusCode = exception.statusCode
-                        value = null
+    fun getPlaceData() {
+        IDList.add(placeID_BarNone)
+        IDList.add(placeID_Aura)
+        IDList.add(placeID_celebrities)
+        for (id in IDList) {
+            val _data = MutableLiveData<Place>().apply {
+                Places.initialize(context, BuildConfig.MAPS_API_KEY)
+                placesClient = Places.createClient(context)
+                val request = FetchPlaceRequest.newInstance(id, placeFields)
+                placesClient.fetchPlace(request)
+                    .addOnSuccessListener { response: FetchPlaceResponse ->
+                        value = response.place
+                    }.addOnFailureListener { exception: Exception ->
+                        if (exception is ApiException) {
+                            val statusCode = exception.statusCode
+                            value = null
+                        }
                     }
-                }
+            }
+            data.add(_data)
         }
-        data = _data
     }
 }
