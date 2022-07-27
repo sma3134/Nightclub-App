@@ -31,7 +31,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-    private lateinit var placeDetail: place
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +64,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val markerList = ArrayList<String>()
         val placeList = ArrayList<place>()
 
-        //get API response and set markers returning place object
+        //get API response and set markers
         fun setMarker(place: Place){
             val res = place(place)
             val loc = res.LatLng
