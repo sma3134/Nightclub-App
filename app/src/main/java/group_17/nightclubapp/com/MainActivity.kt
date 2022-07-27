@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import com.google.android.material.tabs.TabLayoutMediator
 import group_17.nightclubapp.com.databinding.ActivityMainBinding
+import group_17.nightclubapp.com.map.MapsActivity
 
 
 private lateinit var mainBinding: ActivityMainBinding
@@ -61,6 +62,9 @@ class MainActivity : AppCompatActivity() {
             tab.text = navArray[position]
         }
         tabLayoutMediator.attach()
+
+        // This is the clubID that user has clicked on from map.
+        val currClubID = intent.getStringExtra(MapsActivity.PLACE_ID_KEY)
     }
 
     //destroy tab

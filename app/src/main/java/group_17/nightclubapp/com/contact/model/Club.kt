@@ -1,6 +1,6 @@
 package group_17.nightclubapp.com.contact.model
 
-data class Club(val clubId: Long? = null,
+data class Club(val clubId: String? = null,
                 val phoneNumber: String? = null,
                 val email: String? = null,
                 val facebook: String? = null,
@@ -11,7 +11,9 @@ data class Club(val clubId: Long? = null,
                 val lon: Double? = null) {
 
     companion object {
-        val BARNONE =  9548L
+        const val BARNONE =  "ChIJP6CK2tZzhlQRA1kN4Xazsm8"
+        const val AURA = "ChIJF5OUP9RzhlQRA7EQKpS-xeE"
+        const val CELEBRITIES = "ChIJDfEopdRzhlQRiueE4hVtcag"
     }
 }
 

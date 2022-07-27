@@ -14,4 +14,16 @@
         <item name="android:layout_marginEnd">8dp</item>
     </style>
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/quantum_grey400</item>
+        <item name="colorControlActivated">@color/quantum_yellow</item>
+    </style>
+
+    <style name="black_button">
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>
