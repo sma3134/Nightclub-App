@@ -1,17 +1,14 @@
 package group_17.nightclubapp.com.map
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,14 +21,15 @@ import com.google.android.libraries.places.api.model.Place
 import group_17.nightclubapp.com.MainActivity
 import group_17.nightclubapp.com.R
 import group_17.nightclubapp.com.databinding.ActivityMapsBinding
-import group_17.nightclubapp.com.home.HomeFragment
-import org.w3c.dom.Text
+import java.time.LocalDate
+import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var placeDetail: place
+    private var currPlaceID: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,25 +76,51 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         MapsViewModel.getPlaceData()//API request
-        MapsViewModel.data.observe(this){
-            setMarker(it)
+        for (place in MapsViewModel.data) {
+            place.observe(this){
+                setMarker(it)
+            }
         }
 
         mMap.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
             lateinit var place: place
             override fun onMarkerClick(marker: Marker): Boolean {
                 card_view.visibility = View.VISIBLE
-                var index = markerList.indexOf(marker.tag)
-                if (index!=-1) {
+                val index = markerList.indexOf(marker.tag)
+                if (index != -1) {
                     place = placeList[index]
+                    currPlaceID = place.ID
                     val name = findViewById<TextView>(R.id.placeName)
                     val rate = findViewById<RatingBar>(R.id.placeRating)
                     val address = findViewById<TextView>(R.id.placeAddress)
                     val phone = findViewById<TextView>(R.id.placePhone)
+                    val hours = findViewById<TextView>(R.id.placeHours)
                     name.text = place.Name
-                    rate.rating = place.Rating.toFloat()
                     address.text = place.Address
                     phone.text = place.Phone
+
+                    val rating = place.Rating?.toFloat()
+                    if (rating != null) {
+                        rate.rating = rating
+                        rate.visibility = View.VISIBLE
+                    } else {
+                        rate.visibility = View.GONE
+                    }
+
+                    val dayOfWeek = LocalDate.now().dayOfWeek.name
+                    place.OpeningH?.weekdayText?.forEach {
+                        if (it.contains(dayOfWeek, true)) {
+                            if (it.contains("closed", true)) {
+                                hours.text = resources.getString(R.string.closed_today)
+                                hours.setTextColor(resources.getColor(R.color.red))
+                            } else if (it.contains(":")) {
+                                hours.text = resources.getString(R.string.open_today_from,
+                                             it.substringAfter(": "))
+                                hours.setTextColor(resources.getColor(R.color.green))
+                            }
+                        }
+                    }
+
                 }
                 return false
             }
@@ -110,8 +134,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val goBtn = findViewById<Button>(R.id.gogo)
         goBtn.setOnClickListener {
-            val HomeInt = Intent(this, MainActivity::class.java)
-            startActivity(HomeInt)
+            val homeIntent = Intent(this, MainActivity::class.java)
+            homeIntent.putExtra(PLACE_ID_KEY, currPlaceID)
+            startActivity(homeIntent)
         }
+    }
+
+    companion object {
+        const val PLACE_ID_KEY = "PLACE_ID_KEY"
     }
 }
