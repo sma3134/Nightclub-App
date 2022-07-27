@@ -12,6 +12,7 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.FetchPlaceResponse
 import com.google.android.libraries.places.api.net.PlacesClient
 import group_17.nightclubapp.com.BuildConfig
+import group_17.nightclubapp.com.contact.model.Club
 import kotlinx.coroutines.delay
 import java.lang.Thread.sleep
 
@@ -21,9 +22,9 @@ class MapsViewModel(application: Application) : AndroidViewModel(application) {
     val context = getApplication<Application>().applicationContext
 
     //place IDs will be obtained from firebase DB later
-    val placeID_BarNone = "ChIJP6CK2tZzhlQRA1kN4Xazsm8"
-    val placeID_Aura = "ChIJF5OUP9RzhlQRA7EQKpS-xeE"
-    val placeID_celebrities = "ChIJDfEopdRzhlQRiueE4hVtcag"
+    val placeID_BarNone = Club.BARNONE
+    val placeID_Aura = Club.AURA
+    val placeID_celebrities = Club.CELEBRITIES
 
     //required data fields to take from place API
     val placeFields = listOf(

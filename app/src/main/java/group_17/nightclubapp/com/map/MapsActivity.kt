@@ -29,6 +29,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var placeDetail: place
+    private var currPlaceID: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +87,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val index = markerList.indexOf(marker.tag)
                 if (index != -1) {
                     place = placeList[index]
+                    currPlaceID = place.ID
                     val name = findViewById<TextView>(R.id.placeName)
                     val rate = findViewById<RatingBar>(R.id.placeRating)
                     val address = findViewById<TextView>(R.id.placeAddress)
@@ -130,8 +132,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val goBtn = findViewById<Button>(R.id.gogo)
         goBtn.setOnClickListener {
-            val HomeInt = Intent(this, MainActivity::class.java)
-            startActivity(HomeInt)
+            val homeIntent = Intent(this, MainActivity::class.java)
+            homeIntent.putExtra(PLACE_ID_KEY, currPlaceID)
+            startActivity(homeIntent)
         }
+    }
+
+    companion object {
+        const val PLACE_ID_KEY = "PLACE_ID_KEY"
     }
 }
