@@ -46,8 +46,12 @@ class MainActivity : AppCompatActivity() {
         parent.setContentInsetsAbsolute(0, 0)
         val view: View = supportActionBar!!.customView
         val settingsButton=view.findViewById<ImageView>(R.id.settings)
+        val backButton=view.findViewById<ImageView>(R.id.back)
         settingsButton.setOnClickListener{
             startActivity(intent)
+        }
+        backButton.setOnClickListener{
+            finish()
         }
 
         val tabLayout = mainBinding.tabLayout
