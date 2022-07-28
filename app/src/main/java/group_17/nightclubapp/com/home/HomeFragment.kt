@@ -35,9 +35,7 @@ import java.text.DecimalFormat
 
 class HomeFragment : Fragment(), ValueEventListener {
 
-    private lateinit var locationManager: LocationManager
     private lateinit var daoClub: DAOClub
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private lateinit var imageView: ImageView
     private lateinit var tvTitle: TextView
@@ -78,6 +76,8 @@ class HomeFragment : Fragment(), ValueEventListener {
         llAbout = root.findViewById(R.id.ll_about)
         llFAQ = root.findViewById(R.id.ll_faq)
         llOther = root.findViewById(R.id.ll_other)
+        imageView = root.findViewById(R.id.iv_home_logo)
+
 
         daoClub = DAOClub()
 
@@ -85,9 +85,13 @@ class HomeFragment : Fragment(), ValueEventListener {
         currPlaceID = intent?.getStringExtra(PLACE_ID_KEY)
         lat = intent?.getDoubleExtra(LAT_ID_KEY, 0.0)!!
         lng = intent?.getDoubleExtra(LNG_ID_KEY, 0.0)!!
-        println("debug: currplaceID $currPlaceID")
+        if (currPlaceID == "ChIJP6CK2tZzhlQRA1kN4Xazsm8")
+            imageView.setImageResource(R.drawable.barnonelogo)
+        else if (currPlaceID == "ChIJF5OUP9RzhlQRA7EQKpS-xeE")
+            imageView.setImageResource(R.drawable.auralogo)
+        else if (currPlaceID == "ChIJDfEopdRzhlQRiueE4hVtcag")
+            imageView.setImageResource(R.drawable.celebritieslogo)
         daoClub.getClubs().addValueEventListener(this)
-        println("debug: clubinfo $clubInfo")
 
         return root
     }
