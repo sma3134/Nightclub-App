@@ -19,18 +19,25 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import group_17.nightclubapp.com.R
 import group_17.nightclubapp.com.contact.model.Club
 import group_17.nightclubapp.com.contact.model.DAOClub
+import group_17.nightclubapp.com.map.MapsActivity.Companion.LAT_ID_KEY
+import group_17.nightclubapp.com.map.MapsActivity.Companion.LNG_ID_KEY
 import group_17.nightclubapp.com.map.MapsActivity.Companion.PLACE_ID_KEY
+import java.text.DecimalFormat
 
-class HomeFragment : Fragment(), ValueEventListener, LocationListener {
+class HomeFragment : Fragment(), ValueEventListener {
 
     private lateinit var locationManager: LocationManager
     private lateinit var daoClub: DAOClub
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private lateinit var imageView: ImageView
     private lateinit var tvTitle: TextView
@@ -48,6 +55,8 @@ class HomeFragment : Fragment(), ValueEventListener, LocationListener {
     private lateinit var llOther: LinearLayout
     private var clubInfo: Club? = null
     private var currPlaceID: String? = null
+    private var lat: Double = 0.0
+    private var lng: Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +69,7 @@ class HomeFragment : Fragment(), ValueEventListener, LocationListener {
         tvAddress = root.findViewById(R.id.tv_home_address)
         tvDistance = root.findViewById(R.id.tv_home_distance)
         tvHour = root.findViewById(R.id.tv_home_hours)
-        tvWebsite = root.findViewById(R.id.tv_home_hours)
+        tvWebsite = root.findViewById(R.id.tv_home_website)
         tvAnnouncement = root.findViewById(R.id.tv_home_announcement)
         tvAbout = root.findViewById(R.id.tv_home_about)
         tvFAQ = root.findViewById(R.id.tv_home_faq)
@@ -74,12 +83,15 @@ class HomeFragment : Fragment(), ValueEventListener, LocationListener {
 
         val intent = activity?.intent
         currPlaceID = intent?.getStringExtra(PLACE_ID_KEY)
+        lat = intent?.getDoubleExtra(LAT_ID_KEY, 0.0)!!
+        lng = intent?.getDoubleExtra(LNG_ID_KEY, 0.0)!!
         println("debug: currplaceID $currPlaceID")
         daoClub.getClubs().addValueEventListener(this)
         println("debug: clubinfo $clubInfo")
 
         return root
     }
+
 
     override fun onDataChange(snapshot: DataSnapshot) {
         snapshot.children.forEach {
@@ -89,6 +101,22 @@ class HomeFragment : Fragment(), ValueEventListener, LocationListener {
                 tvAddress.text = req?.address
                 tvWebsite.text = req?.website
                 tvHour.text = req?.hours
+                tvWebsite.text = req?.website
+
+                val locationA = Location("pointA")
+                locationA.latitude = req?.lat!!
+                locationA.longitude = req?.lon!!
+                val locationB = Location("pointB")
+                println("debug: lat $lat")
+
+                println("debug: lng $lng")
+                locationB.latitude = lat
+                locationB.longitude = lng
+                val distance: Float = locationA.distanceTo(locationB)
+                val df = DecimalFormat("#.#")
+
+                tvDistance.text = "${df.format(distance/1000)} km away"
+
                 if (req?.announcement!!.isEmpty()) {
                     llAnnoucement.visibility = View.INVISIBLE
                 } else {
@@ -116,12 +144,6 @@ class HomeFragment : Fragment(), ValueEventListener, LocationListener {
 
     override fun onCancelled(error: DatabaseError) {
 
-    }
-
-    override fun onLocationChanged(location: Location) {
-        val lat = location.latitude
-        val long = location.longitude
-        println("debug: lat lng $lat $long")
     }
 
 }

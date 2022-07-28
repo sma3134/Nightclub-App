@@ -1,6 +1,9 @@
 package group_17.nightclubapp.com.map
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -8,7 +11,11 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,10 +36,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var placeDetail: place
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var currPlaceID: String? = null
+    private var myLongitude: Double? = null
+    private var myLatitude: Double? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        checkPermissions(savedInstanceState)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        if (myLatitude == null || myLatitude == null)
+            getLocation()
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -136,11 +151,36 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         goBtn.setOnClickListener {
             val homeIntent = Intent(this, MainActivity::class.java)
             homeIntent.putExtra(PLACE_ID_KEY, currPlaceID)
+            homeIntent.putExtra(LAT_ID_KEY, myLatitude)
+            homeIntent.putExtra(LNG_ID_KEY, myLongitude)
             startActivity(homeIntent)
+        }
+    }
+
+    fun checkPermissions(savedInstanceState: Bundle?) {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                0)
+
+        }
+    }
+
+    private fun getLocation() {
+        fusedLocationClient.lastLocation.addOnSuccessListener { location : Location? ->
+            location?.let {
+                myLongitude = it.longitude
+                myLatitude = it.latitude
+            }
         }
     }
 
     companion object {
         const val PLACE_ID_KEY = "PLACE_ID_KEY"
+        const val LAT_ID_KEY = "LAT_ID_KEY"
+        const val LNG_ID_KEY = "LNG_ID_KEY"
     }
 }
