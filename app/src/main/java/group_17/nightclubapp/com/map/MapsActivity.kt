@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +25,7 @@ import com.google.android.libraries.places.api.model.Place
 import group_17.nightclubapp.com.ImageViewPagerAdapter
 import group_17.nightclubapp.com.MainActivity
 import group_17.nightclubapp.com.R
+import group_17.nightclubapp.com.SettingsActivity
 import group_17.nightclubapp.com.databinding.ActivityMapsBinding
 import java.time.LocalDate
 import java.util.*
@@ -35,13 +38,27 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var placeDetail: place
     private lateinit var mapsViewModel: MapsViewModel
     private var currPlaceID: String? = null
+    private var currPlaceName:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setTitle("Nearby Clubs")
+
+        //Set up action bar for Landing
+        supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar!!.setCustomView(R.layout.landing_action_bar)
+        val parent = supportActionBar!!.customView.parent as androidx.appcompat.widget.Toolbar
+        parent.setContentInsetsAbsolute(0, 0)
+
+        //Set up settings button on the Action bar
+        val view: View = supportActionBar!!.customView
+        val settingsBtn=view.findViewById<ImageView>(R.id.settings)
+        settingsBtn.setOnClickListener{
+            val intentSettings = Intent(this, SettingsActivity::class.java)
+            startActivity(intentSettings)
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -95,6 +112,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (index != -1) {
                     place = placeList[index]
                     currPlaceID = place.ID
+                    currPlaceName = place.Name as String
                     val name = findViewById<TextView>(R.id.placeName)
                     val rate = findViewById<RatingBar>(R.id.placeRating)
                     val address = findViewById<TextView>(R.id.placeAddress)
@@ -151,11 +169,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         goBtn.setOnClickListener {
             val homeIntent = Intent(this, MainActivity::class.java)
             homeIntent.putExtra(PLACE_ID_KEY, currPlaceID)
+            homeIntent.putExtra(PLACE_NAME, currPlaceName)
             startActivity(homeIntent)
         }
     }
 
     companion object {
         const val PLACE_ID_KEY = "PLACE_ID_KEY"
+        const val PLACE_NAME = "PLACE_NAME"
     }
 }
