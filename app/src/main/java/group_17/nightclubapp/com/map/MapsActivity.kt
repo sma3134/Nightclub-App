@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager.widget.ViewPager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -17,18 +18,22 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.model.PhotoMetadata
 import com.google.android.libraries.places.api.model.Place
+import group_17.nightclubapp.com.ImageViewPagerAdapter
 import group_17.nightclubapp.com.MainActivity
 import group_17.nightclubapp.com.R
 import group_17.nightclubapp.com.databinding.ActivityMapsBinding
 import java.time.LocalDate
 import java.util.*
 
+
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var placeDetail: place
+    private lateinit var mapsViewModel: MapsViewModel
     private var currPlaceID: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +61,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val MapsViewModel = ViewModelProvider(this).get(MapsViewModel::class.java)
+        mapsViewModel = ViewModelProvider(this).get(MapsViewModel::class.java)
         val card_view = findViewById<CardView>(R.id.cardView)
 
         //theses two list's indexes are synchronized
@@ -75,8 +80,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             placeList.add(res)
         }
 
-        MapsViewModel.getPlaceData()//API request
-        for (place in MapsViewModel.data) {
+        mapsViewModel.getPlaceData()//API request
+        for (place in mapsViewModel.data) {
             place.observe(this){
                 setMarker(it)
             }
@@ -119,6 +124,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                 hours.setTextColor(resources.getColor(R.color.green))
                             }
                         }
+                    }
+
+                    val imgViewPager = findViewById<ViewPager>(R.id.imgViewPagerMap)
+                    val viewPagerAdapter = ImageViewPagerAdapter(this@MapsActivity, listOf())
+                    imgViewPager.adapter = viewPagerAdapter
+
+                    mapsViewModel.getPhotoBitMap(place.photos as List<PhotoMetadata>)
+                    mapsViewModel.photoBitMaps.observe(this@MapsActivity) {
+                        viewPagerAdapter.images = it
+                        viewPagerAdapter.notifyDataSetChanged()
                     }
 
                 }
