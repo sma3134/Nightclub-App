@@ -20,5 +20,7 @@ class DAOClub {
     fun getClubs(): Query {
         return databaseReference.orderByKey()
     }
+
+
 }
 

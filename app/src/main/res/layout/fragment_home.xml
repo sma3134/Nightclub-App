@@ -73,6 +73,7 @@
                 android:paddingTop="5dp"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_announcement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -85,7 +86,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#FF0000FF" />
+                android:background="#999999" />
             <TextView
                 android:id="@+id/tv_home_announcement"
                 android:layout_width="wrap_content"
@@ -94,10 +95,79 @@
                 android:paddingTop="5dp"/>
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/home_list"
+        <LinearLayout
+            android:id="@+id/ll_about"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:text="About"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#999999" />
+            <TextView
+                android:id="@+id/tv_home_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is an about section"
+                android:paddingTop="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_faq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:text="FAQ"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#999999" />
+            <TextView
+                android:id="@+id/tv_home_faq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is frequently asked questions section"
+                android:paddingTop="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_other"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:text="Information"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#999999" />
+            <TextView
+                android:id="@+id/tv_home_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is other information"
+                android:paddingTop="5dp"/>
+        </LinearLayout>
+
+<!--        <ListView-->
+<!--            android:id="@+id/home_list"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"/>-->
 
 
     </LinearLayout>
