@@ -7,6 +7,13 @@ data class Club(val clubId: String? = null,
                 val instagram: String? = null,
                 val twitter: String? = null,
                 val address: String? = null,
+                val name: String? = null,
+                val website: String? = null,
+                val hours: String? = null,
+                val announcement: String? = null,
+                val about: String? = null,
+                val faq: String? = null,
+                val other: String? = null,
                 val lat: Double? = null,
                 val lon: Double? = null) {
 
