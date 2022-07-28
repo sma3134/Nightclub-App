@@ -29,6 +29,7 @@
     <string name="go">GO!</string>
     <string name="closed_today">Closed Today</string>
     <string name="open_today_from">Open Today From %1$s</string>
+    <string name="nearby_club">Nearby Club</string>
 
 
 </resources>

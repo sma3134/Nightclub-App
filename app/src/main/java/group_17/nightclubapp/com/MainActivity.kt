@@ -1,15 +1,16 @@
 package group_17.nightclubapp.com
 
-
 import android.Manifest
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toolbar
+import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
@@ -38,27 +39,24 @@ private val tabIcons = intArrayOf(
 
 class MainActivity : AppCompatActivity() {
     private lateinit var tabLayoutMediator: TabLayoutMediator
-
+    private lateinit var view: View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
-        val intent = Intent(this, SettingsActivity::class.java)
 
+        // This is the clubID that user has clicked on from map.
+        val currClubID = this.intent.getStringExtra(MapsActivity.PLACE_ID_KEY)
+
+        // Set up Action bar
         supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar!!.setCustomView(R.layout.action_bar)
-
         val parent = supportActionBar!!.customView.parent as androidx.appcompat.widget.Toolbar
         parent.setContentInsetsAbsolute(0, 0)
-        val view: View = supportActionBar!!.customView
-        val settingsButton=view.findViewById<ImageView>(R.id.settings)
-        val backButton=view.findViewById<ImageView>(R.id.back)
-        settingsButton.setOnClickListener{
-            startActivity(intent)
-        }
-        backButton.setOnClickListener{
-            finish()
-        }
+        view= supportActionBar!!.customView
+        val clubName = view.findViewById<TextView>(R.id.clubName)
+        clubName.text=this.intent.getStringExtra(MapsActivity.PLACE_NAME)
+        setActionBarClickListeners()
 
         val tabLayout = mainBinding.tabLayout
         val viewPager = mainBinding.viewPager
@@ -72,9 +70,6 @@ class MainActivity : AppCompatActivity() {
             tab.text = navArray[position]
         }
         tabLayoutMediator.attach()
-
-        // This is the clubID that user has clicked on from map.
-        val currClubID = intent.getStringExtra(MapsActivity.PLACE_ID_KEY)
     }
 
     //destroy tab
@@ -83,4 +78,19 @@ class MainActivity : AppCompatActivity() {
         tabLayoutMediator.detach()
     }
 
+    //Set up click listeners
+    private fun setActionBarClickListeners(){
+        val intentSettings = Intent(this, SettingsActivity::class.java)
+        val settingsButton = view.findViewById<ImageView>(R.id.settings)
+        val backButton = view.findViewById<ImageView>(R.id.back)
+
+        settingsButton.setOnClickListener() {
+            startActivity(intentSettings)
+        }
+        backButton.setOnClickListener {
+            finish()
+        }
+
+
+    }
 }

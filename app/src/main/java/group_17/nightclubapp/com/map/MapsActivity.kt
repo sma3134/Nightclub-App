@@ -7,8 +7,10 @@ import android.location.Location
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
@@ -16,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import androidx.viewpager.widget.ViewPager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,12 +27,16 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.model.PhotoMetadata
 import com.google.android.libraries.places.api.model.Place
+import group_17.nightclubapp.com.ImageViewPagerAdapter
 import group_17.nightclubapp.com.MainActivity
 import group_17.nightclubapp.com.R
+import group_17.nightclubapp.com.SettingsActivity
 import group_17.nightclubapp.com.databinding.ActivityMapsBinding
 import java.time.LocalDate
 import java.util.*
+
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -37,9 +44,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapsBinding
     private lateinit var placeDetail: place
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private var currPlaceID: String? = null
     private var myLongitude: Double? = null
     private var myLatitude: Double? = null
+    private lateinit var mapsViewModel: MapsViewModel
+    private var currPlaceID: String? = null
+    private var currPlaceName:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +60,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setTitle("Nearby Clubs")
+
+        //Set up action bar for Landing
+        supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar!!.setCustomView(R.layout.landing_action_bar)
+        val parent = supportActionBar!!.customView.parent as androidx.appcompat.widget.Toolbar
+        parent.setContentInsetsAbsolute(0, 0)
+
+        //Set up settings button on the Action bar
+        val view: View = supportActionBar!!.customView
+        val settingsBtn=view.findViewById<ImageView>(R.id.settings)
+        settingsBtn.setOnClickListener{
+            val intentSettings = Intent(this, SettingsActivity::class.java)
+            startActivity(intentSettings)
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -71,7 +93,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val MapsViewModel = ViewModelProvider(this).get(MapsViewModel::class.java)
+        mapsViewModel = ViewModelProvider(this).get(MapsViewModel::class.java)
         val card_view = findViewById<CardView>(R.id.cardView)
 
         //theses two list's indexes are synchronized
@@ -90,8 +112,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             placeList.add(res)
         }
 
-        MapsViewModel.getPlaceData()//API request
-        for (place in MapsViewModel.data) {
+        mapsViewModel.getPlaceData()//API request
+        for (place in mapsViewModel.data) {
             place.observe(this){
                 setMarker(it)
             }
@@ -105,6 +127,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (index != -1) {
                     place = placeList[index]
                     currPlaceID = place.ID
+                    currPlaceName = place.Name as String
                     val name = findViewById<TextView>(R.id.placeName)
                     val rate = findViewById<RatingBar>(R.id.placeRating)
                     val address = findViewById<TextView>(R.id.placeAddress)
@@ -136,6 +159,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         }
                     }
 
+                    val imgViewPager = findViewById<ViewPager>(R.id.imgViewPagerMap)
+                    val viewPagerAdapter = ImageViewPagerAdapter(this@MapsActivity, listOf())
+                    imgViewPager.adapter = viewPagerAdapter
+
+                    mapsViewModel.getPhotoBitMap(place.photos as List<PhotoMetadata>)
+                    mapsViewModel.photoBitMaps.observe(this@MapsActivity) {
+                        viewPagerAdapter.images = it
+                        viewPagerAdapter.notifyDataSetChanged()
+                    }
+
                 }
                 return false
             }
@@ -153,6 +186,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             homeIntent.putExtra(PLACE_ID_KEY, currPlaceID)
             homeIntent.putExtra(LAT_ID_KEY, myLatitude)
             homeIntent.putExtra(LNG_ID_KEY, myLongitude)
+            homeIntent.putExtra(PLACE_NAME, currPlaceName)
             startActivity(homeIntent)
         }
     }
@@ -182,5 +216,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         const val PLACE_ID_KEY = "PLACE_ID_KEY"
         const val LAT_ID_KEY = "LAT_ID_KEY"
         const val LNG_ID_KEY = "LNG_ID_KEY"
+        const val PLACE_NAME = "PLACE_NAME"
     }
 }
