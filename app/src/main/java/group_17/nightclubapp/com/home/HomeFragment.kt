@@ -51,7 +51,6 @@ class HomeFragment : Fragment(), ValueEventListener {
     private lateinit var llAbout: LinearLayout
     private lateinit var llFAQ: LinearLayout
     private lateinit var llOther: LinearLayout
-    private var clubInfo: Club? = null
     private var currPlaceID: String? = null
     private var lat: Double = 0.0
     private var lng: Double = 0.0
