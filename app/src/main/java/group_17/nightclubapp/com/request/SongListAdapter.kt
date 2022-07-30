@@ -19,7 +19,6 @@ class SongListAdapter(private val context: Activity, private val songRequest: Li
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
         val rowView = inflater.inflate(R.layout.songlist_layout, null, true)
-        println("debug: adapter 1does this run?")
 
         val imageView = rowView.findViewById(R.id.iv_song) as ImageView
         val tvTitle = rowView.findViewById(R.id.tv_song_title) as TextView

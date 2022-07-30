@@ -142,7 +142,6 @@ class RequestFragment : Fragment(), ValueEventListener {
             val songs = gson.fromJson(response.body()?.string(), SongRequest::class.java)
             val handler = Handler(Looper.getMainLooper())
             handler.post{
-                println("debug: does this run?")
                 arrayAdapter = SongListAdapter(context, songs.data)
                 songListView.adapter = arrayAdapter
                 if (flag)

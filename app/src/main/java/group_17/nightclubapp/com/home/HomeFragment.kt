@@ -110,9 +110,6 @@ class HomeFragment : Fragment(), ValueEventListener {
                 locationA.latitude = req?.lat!!
                 locationA.longitude = req?.lon!!
                 val locationB = Location("pointB")
-                println("debug: lat $lat")
-
-                println("debug: lng $lng")
                 locationB.latitude = lat
                 locationB.longitude = lng
                 val distance: Float = locationA.distanceTo(locationB)
