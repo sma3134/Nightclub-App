@@ -10,10 +10,10 @@ class DAORequest {
 
     init {
         val firebase = FirebaseDatabase.getInstance()
-        databaseReference = firebase.getReference(Request::class.java.simpleName)
+        databaseReference = firebase.getReference(RequestDB::class.java.simpleName)
     }
 
-    fun add(request: Request): Task<Void> {
+    fun add(request: RequestDB): Task<Void> {
         return databaseReference.push().setValue(request)
     }
 
