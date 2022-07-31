@@ -51,16 +51,6 @@
                     />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:paddingStart="10sp"
-                    android:paddingTop="10sp"
-                    android:paddingBottom="10sp"
-                    android:text="@string/call_us"
-                    android:textSize="20sp" />
-
-                <TextView
                     android:id="@+id/callTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -100,18 +90,7 @@
                     android:layout_marginStart="10sp"
                     android:clickable="false"
                     android:src="@drawable/ic_action_email"
-
                     />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:paddingStart="10sp"
-                    android:paddingTop="10sp"
-                    android:paddingBottom="10sp"
-                    android:text="@string/email_us"
-                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/emailTV"
@@ -156,16 +135,6 @@
                     android:src="@drawable/ic_action_contact_location"
 
                     />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:paddingStart="10sp"
-                    android:paddingTop="10sp"
-                    android:paddingBottom="10sp"
-                    android:text="@string/address"
-                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/addressTv"

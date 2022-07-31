@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.ManageActivity">
+
+    <RelativeLayout
+        android:layout_marginTop="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/requestCV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10sp"
+            app:cardElevation="10sp"
+            android:layout_marginHorizontal="15sp"
+            android:backgroundTint="@color/blue_light"
+            android:foreground="?attr/selectableItemBackground"
+            >
+            <LinearLayout
+                android:clickable="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+            <ImageView
+                android:paddingTop="20sp"
+                android:clickable="false"
+                android:layout_width="match_parent"
+                android:layout_height="200sp"
+                android:src="@drawable/dj_mixer"
+
+                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Request"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/marko_one"
+                    android:layout_marginBottom="10sp"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/menuCV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/requestCV"
+            android:layout_marginHorizontal="15sp"
+            android:layout_marginTop="10sp"
+            android:backgroundTint="@color/teal_700"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="10sp"
+            app:cardElevation="10sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:paddingTop="20sp"
+                    android:clickable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="200sp"
+                    android:src="@drawable/open_book"
+
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10sp"
+                    android:clickable="false"
+                    android:fontFamily="@font/marko_one"
+                    android:gravity="center"
+                    android:text="Menu"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:clickable="true"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="30sp"
+            android:id="@+id/bookCV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10sp"
+            app:cardElevation="10sp"
+            android:layout_marginHorizontal="15sp"
+            android:layout_below="@id/menuCV"
+            android:backgroundTint="@color/blue_main"
+            android:foreground="?attr/selectableItemBackground">
+            <LinearLayout
+                android:clickable="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:paddingTop="20sp"
+                    android:clickable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="200sp"
+                    android:src="@drawable/clock"
+
+                    />
+                <TextView
+                    android:clickable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Booking"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/marko_one"
+                    android:layout_marginBottom="10sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+</ScrollView>
