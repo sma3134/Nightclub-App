@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.tabs.TabLayoutMediator
 import group_17.nightclubapp.com.databinding.ActivityMainBinding
 import group_17.nightclubapp.com.map.MapsActivity
+import group_17.nightclubapp.com.setting.SettingsActivity
 
 
 private lateinit var mainBinding: ActivityMainBinding

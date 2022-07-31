@@ -32,7 +32,7 @@ import com.google.android.libraries.places.api.model.Place
 import group_17.nightclubapp.com.ImageViewPagerAdapter
 import group_17.nightclubapp.com.MainActivity
 import group_17.nightclubapp.com.R
-import group_17.nightclubapp.com.SettingsActivity
+import group_17.nightclubapp.com.setting.SettingsActivity
 import group_17.nightclubapp.com.databinding.ActivityMapsBinding
 import java.time.LocalDate
 import java.util.*
