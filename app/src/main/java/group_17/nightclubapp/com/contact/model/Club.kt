@@ -19,8 +19,11 @@ data class Club(val clubId: String? = null,
 
     companion object {
         const val BARNONE =  "ChIJP6CK2tZzhlQRA1kN4Xazsm8"
+        const val BARNONE_CAP = 30
         const val AURA = "ChIJF5OUP9RzhlQRA7EQKpS-xeE"
+        const val AURA_CAP = 25
         const val CELEBRITIES = "ChIJDfEopdRzhlQRiueE4hVtcag"
+        const val CELEBRITIES_CAP = 20
     }
 }
 
