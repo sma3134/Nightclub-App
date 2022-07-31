@@ -1,21 +1,13 @@
 package group_17.nightclubapp.com
 
-import android.Manifest
-import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.material.tabs.TabLayoutMediator
 import group_17.nightclubapp.com.databinding.ActivityMainBinding
 import group_17.nightclubapp.com.map.MapsActivity
@@ -85,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         val settingsButton = view.findViewById<ImageView>(R.id.settings)
         val backButton = view.findViewById<ImageView>(R.id.back)
 
-        settingsButton.setOnClickListener() {
+        settingsButton.setOnClickListener {
             startActivity(intentSettings)
         }
         backButton.setOnClickListener {

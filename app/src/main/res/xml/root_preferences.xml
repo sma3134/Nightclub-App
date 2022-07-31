@@ -41,7 +41,7 @@
         app:iconSpaceReserved="false"
         app:key="service"
         app:summary=""
-        app:title="Terms of service"/>
+        app:title="Terms and Conditions"/>
 
     <Preference
         app:allowDividerBelow="true"
