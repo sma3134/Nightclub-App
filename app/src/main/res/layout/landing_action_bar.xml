@@ -27,7 +27,7 @@
         android:id="@+id/clubIcon"
         android:layout_width="40sp"
         android:layout_height="40sp"
-        android:src="@drawable/logomakrw"
+        android:src="@drawable/ic_nightclub_logo"
         android:layout_marginStart="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/name"
