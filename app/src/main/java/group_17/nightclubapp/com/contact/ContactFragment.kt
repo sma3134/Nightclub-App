@@ -1,10 +1,10 @@
 package group_17.nightclubapp.com.contact
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -126,12 +126,28 @@ class ContactFragment : Fragment(), ValueEventListener {
         phoneLL.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL);
             intent.data = Uri.parse("tel:$phoneNumber")
-            startActivity(intent)
+            try {
+                startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(
+                    requireActivity(),
+                    "No apps to handle the request",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
         emailLL.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND)
             intent.data = Uri.parse("mailto:$emailLink")
-            startActivity(intent)
+            try {
+                startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(
+                    requireActivity(),
+                    "No apps to handle the request",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
     }
