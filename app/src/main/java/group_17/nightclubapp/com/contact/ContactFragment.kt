@@ -137,7 +137,7 @@ class ContactFragment : Fragment(), ValueEventListener {
             }
         }
         emailLL.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SEND)
+            val intent = Intent(Intent.ACTION_SENDTO)
             intent.data = Uri.parse("mailto:$emailLink")
             try {
                 startActivity(intent)
