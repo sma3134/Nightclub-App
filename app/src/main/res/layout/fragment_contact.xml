@@ -1,14 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".contact.ContactFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="contact" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/contactIV"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:src="@drawable/contact_us"
 
-</FrameLayout>
+            />
+
+        <LinearLayout
+            android:id="@+id/phoneLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contactIV"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#999999"
+                android:clickable="false" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10sp"
+                    android:clickable="false"
+                    android:src="@drawable/ic_action_call"
+
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:paddingStart="10sp"
+                    android:paddingTop="10sp"
+                    android:paddingBottom="10sp"
+                    android:text="@string/call_us"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/callTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:clickable="false"
+                    android:paddingTop="10sp"
+                    android:paddingBottom="10sp"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#999999"
+                android:clickable="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/emailLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phoneLL"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10sp"
+                    android:clickable="false"
+                    android:src="@drawable/ic_action_email"
+
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:paddingStart="10sp"
+                    android:paddingTop="10sp"
+                    android:paddingBottom="10sp"
+                    android:text="@string/email_us"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/emailTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4sp"
+                    android:clickable="false"
+                    android:paddingTop="10sp"
+                    android:paddingBottom="10sp"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#999999"
+                android:clickable="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/addressLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailLL"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="false"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10sp"
+                    android:clickable="false"
+                    android:src="@drawable/ic_action_contact_location"
+
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:paddingStart="10sp"
+                    android:paddingTop="10sp"
+                    android:paddingBottom="10sp"
+                    android:text="@string/address"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/addressTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:layout_marginStart="4sp"
+                    android:paddingTop="10sp"
+                    android:paddingBottom="10sp"
+                    android:paddingEnd="5sp"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#999999"
+                android:clickable="false" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/addressLL"
+            android:layout_marginTop="30sp">
+
+            <TextView
+                android:id="@+id/snsTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20sp"
+                android:textSize="20sp"
+                android:text="@string/follow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40sp"
+                android:layout_marginBottom="20sp"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/snsTV">
+
+                <ImageButton
+                    android:id="@+id/facebookIB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:src="@drawable/facebook_icon" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/cardView3"
+                app:layout_constraintStart_toEndOf="@id/cardView1"
+                app:layout_constraintTop_toBottomOf="@id/snsTV">
+
+                <ImageButton
+                    android:id="@+id/instaId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:src="@drawable/insta_icon" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40sp"
+                android:layout_marginBottom="20sp"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/snsTV">
+
+                <ImageButton
+                    android:id="@+id/twitterIB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:src="@drawable/twitter_icon" />
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+</ScrollView>

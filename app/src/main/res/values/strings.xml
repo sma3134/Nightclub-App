@@ -30,6 +30,10 @@
     <string name="closed_today">Closed Today</string>
     <string name="open_today_from">Open Today From %1$s</string>
     <string name="nearby_club">Nearby Club</string>
+    <string name="follow">Follow Us On</string>
+    <string name="call_us">Call Us:</string>
+    <string name="email_us">Email us:</string>
+    <string name="address">Address:</string>
 
 
 </resources>

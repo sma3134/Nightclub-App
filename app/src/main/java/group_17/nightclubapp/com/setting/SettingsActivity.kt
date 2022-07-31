@@ -1,13 +1,13 @@
-package group_17.nightclubapp.com
+package group_17.nightclubapp.com.setting
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceScreen
+import group_17.nightclubapp.com.R
 
 lateinit var sharedPreference:SharedPreferences
 
