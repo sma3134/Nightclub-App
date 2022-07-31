@@ -1,7 +1,7 @@
 package group_17.nightclubapp.com.request.model
 
 
-data class Request(val request: String? = null,
+data class RequestDB(val request: String? = null,
                    val type: String? = null,
                    val clubID: String? = null,
                    val date: Long? = null) {

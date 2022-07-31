@@ -51,7 +51,6 @@ class HomeFragment : Fragment(), ValueEventListener {
     private lateinit var llAbout: LinearLayout
     private lateinit var llFAQ: LinearLayout
     private lateinit var llOther: LinearLayout
-    private var clubInfo: Club? = null
     private var currPlaceID: String? = null
     private var lat: Double = 0.0
     private var lng: Double = 0.0
@@ -111,9 +110,6 @@ class HomeFragment : Fragment(), ValueEventListener {
                 locationA.latitude = req?.lat!!
                 locationA.longitude = req?.lon!!
                 val locationB = Location("pointB")
-                println("debug: lat $lat")
-
-                println("debug: lng $lng")
                 locationB.latitude = lat
                 locationB.longitude = lng
                 val distance: Float = locationA.distanceTo(locationB)

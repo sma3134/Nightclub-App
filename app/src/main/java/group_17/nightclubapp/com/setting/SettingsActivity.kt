@@ -37,7 +37,7 @@ class SettingsActivity : AppCompatActivity() {
 
     class SettingsFragment : PreferenceFragmentCompat() {
         private lateinit var preferenceMenu: PreferenceScreen
-        var counter = 0
+        private var counter = 0
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             var showManage = sharedPreference.getBoolean("MANAGE", false)
