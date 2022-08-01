@@ -21,7 +21,7 @@ class ManageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         clubId= this.intent.getStringExtra(MapsActivity.PLACE_ID_KEY).toString()
+        clubId= this.intent.getStringExtra(MapsActivity.PLACE_ID_KEY).toString()
         manageBinding= ActivityManageBinding.inflate(layoutInflater)
 
         //Set up Action bar

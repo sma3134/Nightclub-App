@@ -34,7 +34,7 @@ import okhttp3.Request
 import java.util.*
 
 
-class RequestFragment : Fragment(), ValueEventListener {
+class RequestFragment : Fragment(){
     private lateinit var btnSubmitSong: Button
     private lateinit var btnClearSong: Button
     private lateinit var btnSubmitAnnouncement: Button
@@ -121,9 +121,6 @@ class RequestFragment : Fragment(), ValueEventListener {
             flag = false
         }
 
-        //get requests
-        daoRequest.getRequests().addValueEventListener(this)
-
         return view
     }
 
@@ -160,21 +157,6 @@ class RequestFragment : Fragment(), ValueEventListener {
                 cardView.visibility = View.GONE
             }
         }
-    }
-
-    override fun onDataChange(snapshot: DataSnapshot) {
-        snapshot.children.forEach {
-            val req = it.getValue(RequestDB::class.java)
-            if (req != null) {
-                if (req.isValid()) {
-                    println("debug: Request: ${req.request}"  )
-                }
-            }
-        }
-    }
-
-    override fun onCancelled(error: DatabaseError) {
-
     }
 
     @ExperimentalCoroutinesApi
