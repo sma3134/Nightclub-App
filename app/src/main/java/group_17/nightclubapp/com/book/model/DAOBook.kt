@@ -7,7 +7,7 @@ import com.google.firebase.database.Query
 import group_17.nightclubapp.com.request.model.BookDB
 
 class DAOBook {
-    private var databaseReference: DatabaseReference
+    var databaseReference: DatabaseReference
 
     init {
         val firebase = FirebaseDatabase.getInstance()

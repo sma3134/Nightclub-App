@@ -15,16 +15,22 @@ import com.google.firebase.database.ValueEventListener
 import group_17.nightclubapp.com.R
 import group_17.nightclubapp.com.book.model.DAOBook
 import group_17.nightclubapp.com.contact.model.Club
+import group_17.nightclubapp.com.contact.model.DAOClub
 import group_17.nightclubapp.com.map.MapsActivity
 import group_17.nightclubapp.com.request.model.BookDB
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.minutes
 
-//TODO: handle when app is rotated, restrict time(in operation time)
+//TODO:restrict time(in operation time)
 
 class BookFragment : Fragment(), ValueEventListener {
 
     private lateinit var datePicker: DatePickerDialog
+    private lateinit var timeAlert: AlertDialog
 
     private lateinit var nameInput: EditText
     private lateinit var emailInput: EditText
@@ -40,6 +46,20 @@ class BookFragment : Fragment(), ValueEventListener {
     private var monthSelected = -1
     private var daySelected = -1
 
+    private var yearSelectedTemp = -1
+    private var monthSelectedTemp = -1
+    private var daySelectedTemp = -1
+
+    private var hourSelected = -1
+    private var minuteSelected = -1
+
+    private var hourSelectedTemp = -1
+    private var minuteSelectedTemp = -1
+
+    var dialogFgmt = -1
+    val daoBook = DAOBook() //firebase reference
+    val daoClub = DAOClub()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,7 +67,29 @@ class BookFragment : Fragment(), ValueEventListener {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_book, container, false)
         val cal = Calendar.getInstance()
-        val daoBook = DAOBook() //firebase reference
+
+
+        //data to be stored
+        yearSelected = cal.get(Calendar.YEAR)
+        monthSelected = cal.get(Calendar.MONTH)
+        daySelected = cal.get(Calendar.DAY_OF_MONTH)
+        hourSelected = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH")).toInt()
+        minuteSelected = LocalDateTime.now().format(DateTimeFormatter.ofPattern("mm")).toInt()
+
+        if(savedInstanceState!=null){
+            dialogFgmt = savedInstanceState.getInt("dialogFgmt",-1)
+            yearSelected = savedInstanceState.getInt("yearSelected",cal.get(Calendar.YEAR))
+            monthSelected = savedInstanceState.getInt("monthSelected",cal.get(Calendar.MONTH))
+            daySelected = savedInstanceState.getInt("daySelected",cal.get(Calendar.DAY_OF_MONTH))
+            hourSelected = savedInstanceState.getInt("hourSelected",LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH")).toInt())
+            minuteSelected = savedInstanceState.getInt("minuteSelected",LocalDateTime.now().format(DateTimeFormatter.ofPattern("mm")).toInt())
+
+            yearSelectedTemp = savedInstanceState.getInt("yearSelectedTemp",-1)
+            monthSelectedTemp = savedInstanceState.getInt("monthSelectedTemp",-1)
+            daySelectedTemp = savedInstanceState.getInt("daySelectedTemp",-1)
+            hourSelectedTemp = savedInstanceState.getInt("hourSelectedTemp",-1)
+            minuteSelectedTemp = savedInstanceState.getInt("minuteSelectedTemp",-1)
+        }
 
         //layout elements
         tableSpin = root.findViewById(R.id.spinner_table_book)
@@ -59,18 +101,14 @@ class BookFragment : Fragment(), ValueEventListener {
         timeBtn = root.findViewById(R.id.btn_time_select)
         submitBtn = root.findViewById(R.id.btn_submit_book)
 
-        //data to be stored
-        yearSelected = cal.get(Calendar.YEAR)
-        monthSelected = cal.get(Calendar.MONTH)
-        daySelected = cal.get(Calendar.DAY_OF_MONTH)
-        var hourSelected: Int? = null
-        var minuteSelected: Int? = null
+
+
         var tableSelected: Int? = null
         var peopleSelected: Int? = null
 
         //people spinner list [1~10]
         val peopleArray: Array<Int> = Array(10){index->index+1}
-        val peopleSpinnerAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_dropdown_item,peopleArray)
+        val peopleSpinnerAdapter = ArrayAdapter(requireActivity(),android.R.layout.simple_spinner_dropdown_item,peopleArray)
         peopleSpin.adapter = peopleSpinnerAdapter
 
         val intent = activity?.intent
@@ -91,7 +129,7 @@ class BookFragment : Fragment(), ValueEventListener {
             }
             var date:String? = yearSelected.toString() + "-" + monthSelected.toString() + "-" + daySelected.toString()
             var time:String? = hourSelected.toString() + ":" + minuteSelected.toString()
-            if(hourSelected==null || minuteSelected==null){
+            if(hourSelected==-1 || minuteSelected==-1){
                 time = null
             }
 
@@ -104,23 +142,55 @@ class BookFragment : Fragment(), ValueEventListener {
                 }
             }
             else{
+                println(req)
                 Toast.makeText(requireContext(), "Please fill the blank/date/time", Toast.LENGTH_SHORT).show()
             }
         }
 
         //date picker dialog fragment
         dateBtn.setOnClickListener {
+
             val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 yearSelected = year
                 monthSelected = month
                 daySelected = dayOfMonth
+                yearSelectedTemp = -1
+                monthSelectedTemp = -1
+                daySelectedTemp = -1
                 val data = daoBook.getBooks(clubID).get()
                 data.addOnCompleteListener {
                     spinnerUpdate(it.result)
                 }
+                dialogFgmt = -1
             }
-            datePicker = DatePickerDialog(requireActivity(), dateSetListener, yearSelected!!,monthSelected!!,daySelected!!)
+            datePicker = DatePickerDialog(
+                    requireActivity(),
+                    dateSetListener,
+                    yearSelected,
+                    monthSelected,
+                    daySelected)
+            if(dialogFgmt == 0 && yearSelectedTemp!=-1 && monthSelectedTemp!=-1 && daySelectedTemp!=-1) {
+                datePicker = DatePickerDialog(
+                    requireActivity(),
+                    dateSetListener,
+                    yearSelectedTemp,
+                    monthSelectedTemp,
+                    daySelectedTemp
+                )
+            }
             datePicker.datePicker.minDate = System.currentTimeMillis() - 1000
+            datePicker.datePicker.setOnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
+                yearSelectedTemp = year
+                monthSelectedTemp = monthOfYear
+                daySelectedTemp = dayOfMonth
+            }
+            datePicker.setOnCancelListener {
+                dialogFgmt = -1
+                yearSelectedTemp = -1
+                monthSelectedTemp = -1
+                daySelectedTemp = -1
+            }
+            dialogFgmt = 0
             datePicker.show()
         }
 
@@ -129,27 +199,45 @@ class BookFragment : Fragment(), ValueEventListener {
             val timeBuilder = AlertDialog.Builder(requireActivity())
             val timePickerView = layoutInflater.inflate(R.layout.timepicker,null)
             val timePicker = timePickerView.findViewById<TimePicker>(R.id.timep)
-            if(hourSelected!=null && minuteSelected!=null){
-                timePicker.hour = hourSelected!!
-                timePicker.minute = minuteSelected!!
+            timePicker.hour = hourSelected
+            timePicker.minute = minuteSelected
+            var changed = 0
+
+            if(dialogFgmt==1 && hourSelectedTemp!=-1 && minuteSelectedTemp!=-1){
+                timePicker.hour = hourSelectedTemp
+                timePicker.minute = minuteSelectedTemp
             }
             timePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
-                hourSelected = hourOfDay
-                minuteSelected = minute
+                hourSelectedTemp = hourOfDay
+                minuteSelectedTemp = minute
+                changed = 1
             }
             timeBuilder.setOnCancelListener {
-                hourSelected = null
-                minuteSelected = null
+                hourSelectedTemp = -1
+                minuteSelectedTemp = -1
+                dialogFgmt = -1
             }
-            val timeSaved = DialogInterface.OnClickListener { dialog, which -> }
+            val timeSaved = DialogInterface.OnClickListener { dialog, which ->
+                if(changed == 1) {
+                    hourSelected = hourSelectedTemp
+                    minuteSelected = minuteSelectedTemp
+                }
+                hourSelectedTemp = -1
+                minuteSelectedTemp = -1
+                dialogFgmt = -1
+            }
             val timeCanceled = DialogInterface.OnClickListener { dialog, which ->
-                hourSelected = null
-                minuteSelected = null
+                hourSelectedTemp = -1
+                minuteSelectedTemp = -1
+                dialogFgmt = -1
+                dialogFgmt = -1
             }
             timeBuilder.setView(timePicker)
             timeBuilder.setPositiveButton("OK",timeSaved)
             timeBuilder.setNegativeButton("CANCEL",timeCanceled)
-            timeBuilder.show()
+            dialogFgmt = 1
+            timeAlert = timeBuilder.create()
+            timeAlert.show()
         }
 
 
@@ -185,6 +273,12 @@ class BookFragment : Fragment(), ValueEventListener {
                 peopleSelected = position+1
             }
         }
+
+        when(dialogFgmt){
+            0->{dateBtn.performClick()}
+            1->{timeBtn.performClick()}
+        }
+
         return root
     }
 
@@ -211,14 +305,16 @@ class BookFragment : Fragment(), ValueEventListener {
         }
 
         val table_Array = ArrayList<Int>()
+        val table_Array_toshow = ArrayList<String>()
         for (i in 0 until table_array.size){
             if(table_array[i]==1){
                 table_Array.add(i+1)
+                table_Array_toshow.add("Table " + (i+1).toString())
             }
         }
 
         tableList = table_Array
-        tableSpin.adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_dropdown_item,table_Array)
+        tableSpin.adapter = ArrayAdapter(requireActivity(),android.R.layout.simple_spinner_dropdown_item,table_Array_toshow)
     }
 
     override fun onDataChange(snapshot: DataSnapshot) {
@@ -226,5 +322,36 @@ class BookFragment : Fragment(), ValueEventListener {
     }
     override fun onCancelled(error: DatabaseError) {
         println(error)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("dialogFgmt",dialogFgmt)
+        outState.putInt("hourSelected",hourSelected)
+        outState.putInt("minuteSelected",minuteSelected)
+        outState.putInt("yearSelected",yearSelected)
+        outState.putInt("monthSelected",monthSelected)
+        outState.putInt("daySelected",daySelected)
+        outState.putInt("hourSelectedTemp",hourSelectedTemp)
+        outState.putInt("minuteSelectedTemp",minuteSelectedTemp)
+        outState.putInt("yearSelectedTemp",yearSelectedTemp)
+        outState.putInt("monthSelectedTemp",monthSelectedTemp)
+        outState.putInt("daySelectedTemp",daySelectedTemp)
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if(dialogFgmt == 0) {
+            datePicker.dismiss()
+        }
+        else if(dialogFgmt == 1){
+            timeAlert.dismiss()
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        daoBook.databaseReference.removeEventListener(this)
     }
 }
