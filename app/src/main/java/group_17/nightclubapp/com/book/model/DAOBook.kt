@@ -19,6 +19,6 @@ class DAOBook {
     }
 
     fun getBooks(clubID: String?): Query {
-        return databaseReference.orderByKey().equalTo(clubID)
+        return databaseReference.orderByChild("clubID").equalTo(clubID)
     }
 }
