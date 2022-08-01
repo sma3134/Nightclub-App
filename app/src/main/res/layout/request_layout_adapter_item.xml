@@ -1,27 +1,37 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/djRequestCardview"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/dj_request_text"
-        android:layout_width="wrap_content"
+    app:cardCornerRadius="10dp"
+    android:elevation="20dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        tools:text="Song request: Hot line bling by Drake"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:textSize="16sp" />
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/dj_request_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            tools:text="Song request: Hot line bling by Drake"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textSize="16sp" />
 
 
-    <TextView
-        android:id="@+id/dj_request_date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        tools:text="Received on July 3rd at 2:32"
-        android:layout_below="@+id/dj_request_text"
-        android:layout_alignParentStart="true"
-        android:textSize="16sp" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/dj_request_date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            tools:text="Received on July 3rd at 2:32"
+            android:layout_below="@+id/dj_request_text"
+            android:layout_alignParentStart="true"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
