@@ -24,6 +24,10 @@ data class Club(val clubId: String? = null,
         const val AURA_CAP = 10
         const val CELEBRITIES = "ChIJDfEopdRzhlQRiueE4hVtcag"
         const val CELEBRITIES_CAP = 10
+
+        const val AURANE="auranightclub@gmail.com"
+        const val CELEBRITIESE="celebritiesnightclub@gmail.com"
+        const val BARNONEE="barnonenightclub@gmail.com"
     }
 }
 

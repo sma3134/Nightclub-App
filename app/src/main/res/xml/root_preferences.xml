@@ -15,27 +15,7 @@
             android:targetClass="group_17.nightclubapp.com.login.LogIn"
             android:targetPackage="group_17.nightclubapp.com" />
     </Preference>
-    <ListPreference
-        app:defaultValue="reply"
-        app:entries="@array/reply_entries"
-        app:entryValues="@array/reply_values"
-        app:iconSpaceReserved="false"
-        app:key="reply"
-        app:title="@string/reply_title"
-        app:useSimpleSummaryProvider="true" />
 
-    <SwitchPreferenceCompat
-        app:iconSpaceReserved="false"
-        app:key="sync"
-        app:title="@string/sync_title" />
-
-    <SwitchPreferenceCompat
-        app:dependency="sync"
-        app:iconSpaceReserved="false"
-        app:key="attachment"
-        app:summaryOff="@string/attachment_summary_off"
-        app:summaryOn="@string/attachment_summary_on"
-        app:title="@string/attachment_title" />
     <Preference
         app:allowDividerBelow="true"
         app:iconSpaceReserved="false"
@@ -49,10 +29,10 @@
         app:key="help"
         app:summary="Get help"
         app:title="Help">
-<!--    <intent-->
-<!--        android:action="android.intent.action.VIEW"-->
-<!--        android:targetClass="group_17.nightclubapp.com.login.LogIn"-->
-<!--        android:targetPackage="group_17.nightclubapp.com" />-->
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:targetClass="group_17.nightclubapp.com.setting.HelpActivity"
+        android:targetPackage="group_17.nightclubapp.com" />
     </Preference>
     <Preference
         app:allowDividerBelow="true"
