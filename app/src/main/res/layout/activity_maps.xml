@@ -78,10 +78,22 @@
                     style="@style/black_button"
                     android:text="@string/go"/>
 
-                <androidx.viewpager.widget.ViewPager
-                android:id="@+id/imgViewPagerMap"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/imgViewPagerMap"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_three_dots"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"/>
+                </RelativeLayout>
             </LinearLayout>
         </ScrollView>
     </androidx.cardview.widget.CardView>

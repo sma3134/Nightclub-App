@@ -5,7 +5,7 @@
     android:layout_height = "match_parent"
     android:gravity = "center_vertical"
     android:weightSum = "1"
-    android:background="@color/purple_500"
+    android:background="@color/blue_main"
     >
 
 
@@ -27,7 +27,7 @@
         android:id="@+id/clubIcon"
         android:layout_width="40sp"
         android:layout_height="40sp"
-        android:src="@drawable/logomakrw"
+        android:src="@drawable/ic_nightclub_logo"
         android:layout_marginStart="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/name"
