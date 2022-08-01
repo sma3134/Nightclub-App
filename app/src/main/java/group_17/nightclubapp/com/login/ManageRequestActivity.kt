@@ -57,7 +57,8 @@ class ManageRequestActivity : AppCompatActivity(), ValueEventListener {
         requestListView.adapter = arrayAdapter
 
         viewModel.requestList.observe(this) {
-            arrayAdapter.replace(it)
+            val reversed = it.reversed()
+            arrayAdapter.replace(reversed)
             arrayAdapter.notifyDataSetChanged()
         }
 

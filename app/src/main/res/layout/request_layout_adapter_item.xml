@@ -5,24 +5,23 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/first_line_text"
+        android:id="@+id/dj_request_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="2"
         android:textStyle="bold"
-        tools:text="Manual Entry: Running, 15:06:46 Jun. 22 2022"
+        tools:text="Song request: Hot line bling by Drake"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:textSize="16sp" />
 
 
     <TextView
-        android:id="@+id/second_line_text"
+        android:id="@+id/dj_request_date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        tools:text="10 Miles, 30mins 36secs"
-        android:layout_below="@+id/first_line_text"
+        tools:text="Received on July 3rd at 2:32"
+        android:layout_below="@+id/dj_request_text"
         android:layout_alignParentStart="true"
         android:textSize="16sp" />
 </RelativeLayout>

@@ -25,11 +25,11 @@ class RequestListAdapter(private val context: Context, private var requestList: 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = View.inflate(context, R.layout.request_layout_adapter_item,null)
 
-        val firstLineTv = view.findViewById(R.id.first_line_text) as TextView
-        val secondLineTv = view.findViewById(R.id.second_line_text) as TextView
+        val requestLineTV = view.findViewById(R.id.dj_request_text) as TextView
+        val dateLineTV = view.findViewById(R.id.dj_request_date_text) as TextView
 
-        firstLineTv.text = requestList[position].request
-        secondLineTv.text = requestList[position].date.toString()
+        requestLineTV.text = requestList[position].getRequestText()
+        dateLineTV.text = requestList[position].getDateText()
 
         return view
     }
