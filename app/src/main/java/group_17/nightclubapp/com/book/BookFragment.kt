@@ -20,6 +20,8 @@ import group_17.nightclubapp.com.request.model.BookDB
 import java.util.*
 import kotlin.collections.ArrayList
 
+//TODO: handle when app is rotated, restrict time(in operation time)
+
 class BookFragment : Fragment(), ValueEventListener {
 
     private lateinit var datePicker: DatePickerDialog
@@ -118,6 +120,7 @@ class BookFragment : Fragment(), ValueEventListener {
                 }
             }
             datePicker = DatePickerDialog(requireActivity(), dateSetListener, yearSelected!!,monthSelected!!,daySelected!!)
+            datePicker.datePicker.minDate = System.currentTimeMillis() - 1000
             datePicker.show()
         }
 
