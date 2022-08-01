@@ -54,8 +54,6 @@ class LogIn : AppCompatActivity() {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-//                        Toast.makeText(this, "launch new activity here", Toast.LENGTH_SHORT).show()
-                        //launch new activity with email so we know which club to show
                         val loginIntent = Intent(this, ManageActivity::class.java)
                         when (email) {
                             "auranightclub@gmail.com" -> loginIntent.putExtra(
