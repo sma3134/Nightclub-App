@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    tools:context=".home.HomeFragment"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent">-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".home.HomeFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -104,7 +104,7 @@
                 android:id="@+id/et_announcement"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="enter song request"
+                android:hint="enter announcement request"
                 android:background="@drawable/edit_text_background"/>
             <LinearLayout
                 android:layout_height="wrap_content"
@@ -134,4 +134,4 @@
 
         </LinearLayout>
     </LinearLayout>
-<!--</ScrollView>-->
+</ScrollView>
