@@ -116,9 +116,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapsViewModel.getPlaceData()//API request
         for (place in mapsViewModel.data) {
             place.observe(this){
-                if(it != null) {
-                    setMarker(it)
-                }
+                setMarker(it)
             }
         }
 
