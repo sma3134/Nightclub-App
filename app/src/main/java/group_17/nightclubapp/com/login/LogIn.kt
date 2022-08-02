@@ -56,15 +56,15 @@ class LogIn : AppCompatActivity() {
                     if (it.isSuccessful) {
                         val loginIntent = Intent(this, ManageActivity::class.java)
                         when (email) {
-                            "auranightclub@gmail.com" -> loginIntent.putExtra(
+                            Club.AURANE -> loginIntent.putExtra(
                                 MapsActivity.PLACE_ID_KEY,
                                 Club.AURA
                             )
-                            "celebritiesnightclub@gmail.com" -> loginIntent.putExtra(
+                            Club.CELEBRITIESE-> loginIntent.putExtra(
                                 MapsActivity.PLACE_ID_KEY,
                                 Club.CELEBRITIES
                             )
-                            "barnonenightclub@gmail.com" -> loginIntent.putExtra(
+                            Club.BARNONEE -> loginIntent.putExtra(
                                 MapsActivity.PLACE_ID_KEY,
                                 Club.BARNONE
                             )
