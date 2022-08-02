@@ -25,7 +25,7 @@ import kotlin.collections.ArrayList
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
-//TODO:restrict time(in operation time)
+//TODO:restrict time(in operation time), show the current date and time
 
 class BookFragment : Fragment(), ValueEventListener {
 
