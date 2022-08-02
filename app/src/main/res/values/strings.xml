@@ -30,6 +30,12 @@
     <string name="closed_today">Closed Today</string>
     <string name="open_today_from">Open Today From %1$s</string>
     <string name="nearby_club">Nearby Club</string>
+
+    <string name="checkout">Checkout</string>
+    <string name="applicable_taxes">+applicable taxes</string>
+    <string name="order">Order</string>
+    <string name="follow">Follow</string>
+
     <string name="follow">Follow Us On</string>
     <string name="call_us">Call Us:</string>
     <string name="email_us">Email us:</string>
@@ -37,6 +43,7 @@
     <string name="app_phone_number">(999) 119–7253</string>
     <string name="app_email">nightclubcmpt362@gmail.com</string>
     <string name="group_address">8888 University Dr, Burnaby, BC V5A 1S6</string>
+
 
 
 </resources>
