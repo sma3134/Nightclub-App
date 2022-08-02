@@ -158,7 +158,8 @@ class MenuFragment : Fragment() {
                         }
                     }
 //                    Log.d("ItemList", menuItems.toString())
-                    menuAdapter = MenuArrayAdapter(fragmentManager!!, requireActivity(), menuItems)
+//                    fragmentManager
+                    menuAdapter = MenuArrayAdapter(fragmentManager!!, this@MenuFragment.requireActivity(), menuItems)
                     mListView.adapter = menuAdapter
                 }
             }
