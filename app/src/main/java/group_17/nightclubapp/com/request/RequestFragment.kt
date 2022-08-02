@@ -107,7 +107,7 @@ class RequestFragment : Fragment(){
         }
 
         btnSubmitAnnouncement.setOnClickListener {
-            if (etSong.text.toString().isNotEmpty()) {
+            if (etAnnouncement.text.toString().isNotEmpty()) {
                 val clubId = currPlaceID
                 val req = RequestDB(
                     etAnnouncement.text.toString(),
