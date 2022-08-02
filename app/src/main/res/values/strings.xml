@@ -42,7 +42,7 @@
     <string name="app_phone_number">(999) 119–7253</string>
     <string name="app_email">nightclubcmpt362@gmail.com</string>
     <string name="group_address">8888 University Dr, Burnaby, BC V5A 1S6</string>
-
+    <string name="eula">https://nightclub.vercel.app/eula</string>
 
 
 </resources>
