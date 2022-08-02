@@ -6,4 +6,4 @@ The NightClub App is an application that provides users, club owners, and DJs a 
 
 
 Help Recieved from:
-Firebase: https://www.youtube.com/watch?v=741QCymuky4&t=643s for project + https://www.youtube.com/watch?v=8I5gCLaS25w
+Firebase: https://www.youtube.com/watch?v=741QCymuky4&t=643s + https://www.youtube.com/watch?v=8I5gCLaS25w
