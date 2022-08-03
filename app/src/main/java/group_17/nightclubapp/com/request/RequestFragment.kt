@@ -84,17 +84,21 @@ class RequestFragment : Fragment(){
 
         //submit to database
         btnSubmitSong.setOnClickListener {
-            val clubId = currPlaceID
-            val req = RequestDB(etSong.text.toString(), RequestDB.SONG_REQUEST, clubId, Calendar.getInstance().timeInMillis)
-            if (req.isValid()) {
-                daoRequest.add(req).addOnSuccessListener {
-                    Toast.makeText(context, "Success, Song request sent to DJ", Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener {
-                    Toast.makeText(context, "Failed, song request not sent to DJ", Toast.LENGTH_SHORT).show()
+            if (etSong.text.toString().isNotEmpty()) {
+                val clubId = currPlaceID
+                val req = RequestDB(etSong.text.toString(), RequestDB.SONG_REQUEST, clubId, Calendar.getInstance().timeInMillis)
+                if (req.isValid()) {
+                    daoRequest.add(req).addOnSuccessListener {
+                        Toast.makeText(context, "Success, Song request sent to DJ", Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener {
+                        Toast.makeText(context, "Failed, song request not sent to DJ", Toast.LENGTH_SHORT).show()
+                    }
                 }
+                flag = false
+                etSong.text.clear()
+            } else {
+                Toast.makeText(context, "Failed, song entry cannot be empty", Toast.LENGTH_SHORT).show()
             }
-            flag = false
-            etSong.text.clear()
         }
 
         btnClearSong.setOnClickListener {
@@ -103,17 +107,38 @@ class RequestFragment : Fragment(){
         }
 
         btnSubmitAnnouncement.setOnClickListener {
-            val clubId = currPlaceID
-            val req = RequestDB(etAnnouncement.text.toString(), RequestDB.ANNOUNCEMENT_REQUEST, clubId, Calendar.getInstance().timeInMillis)
-            if (req.isValid()) {
-                daoRequest.add(req).addOnSuccessListener {
-                    Toast.makeText(context, "Success, Announcement request sent to DJ", Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener {
-                    Toast.makeText(context, "Failed, announcement request not Sent to DJ", Toast.LENGTH_SHORT).show()
+            if (etAnnouncement.text.toString().isNotEmpty()) {
+                val clubId = currPlaceID
+                val req = RequestDB(
+                    etAnnouncement.text.toString(),
+                    RequestDB.ANNOUNCEMENT_REQUEST,
+                    clubId,
+                    Calendar.getInstance().timeInMillis
+                )
+                if (req.isValid()) {
+                    daoRequest.add(req).addOnSuccessListener {
+                        Toast.makeText(
+                            context,
+                            "Success, Announcement request sent to DJ",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }.addOnFailureListener {
+                        Toast.makeText(
+                            context,
+                            "Failed, announcement request not Sent to DJ",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
+                etAnnouncement.text.clear()
+                flag = false
+            } else {
+                Toast.makeText(
+                    context,
+                    "Failed, announcement request cannot be empty",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-            etAnnouncement.text.clear()
-            flag = false
         }
 
         btnClearAnnouncement.setOnClickListener {

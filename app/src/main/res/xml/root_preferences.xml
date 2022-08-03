@@ -21,24 +21,27 @@
         app:iconSpaceReserved="false"
         app:key="service"
         app:summary=""
-        app:title="Terms and Conditions"/>
-
+        app:title="Terms and Conditions">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="@string/eula" />
+    </Preference>
     <Preference
         app:allowDividerBelow="true"
         app:iconSpaceReserved="false"
         app:key="help"
         app:summary="Get help"
         app:title="Help">
-    <intent
-        android:action="android.intent.action.VIEW"
-        android:targetClass="group_17.nightclubapp.com.setting.HelpActivity"
-        android:targetPackage="group_17.nightclubapp.com" />
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="group_17.nightclubapp.com.setting.HelpActivity"
+            android:targetPackage="group_17.nightclubapp.com" />
     </Preference>
     <Preference
         app:allowDividerBelow="true"
         app:iconSpaceReserved="false"
         app:key="version"
         app:summary="Version:1.0.0"
-        app:title="Version"/>
+        app:title="Version" />
 
 </PreferenceScreen>
