@@ -58,7 +58,6 @@ class BookFragment : Fragment(), ValueEventListener {
 
     var dialogFgmt = -1
     val daoBook = DAOBook() //firebase reference
-    val daoClub = DAOClub()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
