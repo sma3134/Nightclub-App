@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import group_17.nightclubapp.com.R
 
 class BookListAdapter(private val context: Context): BaseAdapter() {
@@ -33,17 +34,29 @@ class BookListAdapter(private val context: Context): BaseAdapter() {
         val phone = view.findViewById<TextView>(R.id.book_phone_text)
         val table = view.findViewById<TextView>(R.id.book_table_text)
         val item = bookList[position]
+        val cardview = view.findViewById(R.id.bookCardview) as CardView
 
         name.text = "Name: " + item.name
         phone.text = "Phone: " + item.phone
         table.text = "Table: " + item.table.toString()
+        val colorBooked = context.getColor(R.color.green_card_view)
+        val colorSelected = context.getColor(R.color.blue_card_view)
+
+        if(item.name!="" && item.phone!="" && item.flag == 0) {
+            cardview.setCardBackgroundColor(colorBooked)
+        }
+        if(item.name!="" && item.phone!="" && item.flag == 1) {
+            cardview.setCardBackgroundColor(colorSelected)
+        }
 
         return view
     }
 }
 
-class BookItem(private var userName: String, private var userPhone: String, private var userTable: Int){
+class BookItem(private var userName: String, private var userPhone: String, private var userTable: Int, private var DBID: String){
     val name = userName
     val phone = userPhone
     val table = userTable
+    var flag = 0
+    val ID = DBID
 }

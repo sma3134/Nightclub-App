@@ -15,10 +15,17 @@ class DAOBook {
     }
 
     fun add(request: BookDB): Task<Void> {
-        return databaseReference.push().setValue(request)
+        val push = databaseReference.push()
+        val key = push.key
+        request.pushID = key
+        return push.setValue(request)
     }
 
     fun getBooks(clubID: String?): Query {
         return databaseReference.orderByChild("clubID").equalTo(clubID)
+    }
+
+    fun delBook(key: String){
+        databaseReference.child(key).removeValue()
     }
 }

@@ -6,12 +6,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.ActionBar
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import group_17.nightclubapp.com.R
 import group_17.nightclubapp.com.book.model.DAOBook
@@ -46,6 +50,8 @@ class ManageBookActivity : AppCompatActivity(), ValueEventListener {
 
     var dialogFgmt = -1
     val daoBook = DAOBook()
+
+    private lateinit var menuItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +92,9 @@ class ManageBookActivity : AppCompatActivity(), ValueEventListener {
 
         bookViewModel.bookList.observe(this){
             bookAdapter.update(it)
+            if(bookViewModel.count == 0){
+                Toast.makeText(this, "Booking is empty for today", Toast.LENGTH_SHORT).show()
+            }
             bookAdapter.notifyDataSetChanged()
         }
 
@@ -101,10 +110,15 @@ class ManageBookActivity : AppCompatActivity(), ValueEventListener {
                 monthSelectedTemp = -1
                 daySelectedTemp = -1
                 date = yearSelected.toString() + "-" + monthSelected.toString() + "-" + daySelected.toString()
+                bookViewModel.selectedCard = null
+                bookViewModel.tableSelected = -1
+                menuItem.setEnabled(false)
+                menuItem.setVisible(false)
                 val data = daoBook.getBooks(clubID).get()
                 data.addOnCompleteListener {
                     bookViewModel.update(it.result,clubID,date)
                 }
+
                 dialogFgmt = -1
             }
             datePicker = DatePickerDialog(
@@ -140,6 +154,39 @@ class ManageBookActivity : AppCompatActivity(), ValueEventListener {
 
         when(dialogFgmt){
             0->{dateSelect.performClick()}
+        }
+
+
+        bookListView.setOnItemClickListener { parent, view, position, id ->
+            val cardview = view.findViewById(R.id.bookCardview) as CardView
+            val name = bookViewModel.bookList.value!![position].name
+            val phone = bookViewModel.bookList.value!![position].phone
+            val table = bookViewModel.bookList.value!![position].table
+            val flag =  bookViewModel.bookList.value!![position].flag
+            val tableSelected = bookViewModel.tableSelected
+            val selectedCard = bookViewModel.selectedCard
+
+            if(name!="" && phone!="" && flag == 0){
+                bookViewModel.bookList.value!![position].flag = 1
+                if(tableSelected!=-1 && selectedCard!=null){
+                    bookViewModel.bookList.value!![tableSelected-1].flag = 0
+                }
+                bookViewModel.tableSelected = table
+                bookViewModel.selectedCard = cardview
+                menuItem.setEnabled(true)
+                menuItem.setVisible(true)
+                bookAdapter.notifyDataSetChanged()
+            }
+            else if(name!="" && phone!="" && flag == 1){
+                bookViewModel.bookList.value!![position].flag = 0
+                bookViewModel.tableSelected = -1
+                bookViewModel.selectedCard = null
+                menuItem.setEnabled(false)
+                menuItem.setVisible(false)
+                bookAdapter.notifyDataSetChanged()
+            }
+
+
         }
     }
 
@@ -180,5 +227,29 @@ class ManageBookActivity : AppCompatActivity(), ValueEventListener {
             datePicker.dismiss()
         }
         daoBook.databaseReference.removeEventListener(this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        menuItem = menu!!.getItem(0)
+        if(bookViewModel.tableSelected==-1){
+            menuItem.setVisible(false)
+            menuItem.setEnabled(false)
+        }
+        else{
+            menuItem.setVisible(true)
+            menuItem.setEnabled(true)
+        }
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        menuItem.setEnabled(false)
+        menuItem.setVisible(false)
+        daoBook.delBook(bookViewModel.bookList.value!![bookViewModel.tableSelected-1].ID)
+        bookViewModel.selectedCard = null
+        bookViewModel.tableSelected = -1
+        return super.onOptionsItemSelected(item)
     }
 }

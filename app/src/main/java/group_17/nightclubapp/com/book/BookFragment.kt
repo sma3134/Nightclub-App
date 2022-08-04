@@ -132,7 +132,7 @@ class BookFragment : Fragment(), ValueEventListener {
                 time = null
             }
 
-            val req = BookDB(name,email,phone,date,time,tableSelected,peopleSelected, clubID)
+            val req = BookDB(name,email,phone,date,time,tableSelected,peopleSelected, clubID,"")
             if(req.isValid()){
                 daoBook.add(req).addOnSuccessListener {
                     Toast.makeText(context, "Success, you booked a table", Toast.LENGTH_SHORT).show()
