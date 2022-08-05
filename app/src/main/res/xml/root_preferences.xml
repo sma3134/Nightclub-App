@@ -17,6 +17,7 @@
     </Preference>
 
     <Preference
+        app:allowDividerAbove="true"
         app:allowDividerBelow="true"
         app:iconSpaceReserved="false"
         app:key="service"
@@ -27,6 +28,7 @@
             android:data="@string/eula" />
     </Preference>
     <Preference
+        app:allowDividerAbove="true"
         app:allowDividerBelow="true"
         app:iconSpaceReserved="false"
         app:key="help"
@@ -38,10 +40,14 @@
             android:targetPackage="group_17.nightclubapp.com" />
     </Preference>
     <Preference
+        app:allowDividerAbove="true"
         app:allowDividerBelow="true"
         app:iconSpaceReserved="false"
         app:key="version"
         app:summary="Version:1.0.0"
         app:title="Version" />
+    <Preference
+        app:allowDividerAbove="true"
+     />
 
 </PreferenceScreen>
