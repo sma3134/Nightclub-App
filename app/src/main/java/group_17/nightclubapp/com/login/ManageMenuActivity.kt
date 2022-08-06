@@ -48,7 +48,7 @@ class ManageMenuActivity : AppCompatActivity(){
         val clubName = view.findViewById<TextView>(R.id.clubName)
         val settings = view.findViewById<ImageButton>(R.id.settings)
         settings.visibility = View.INVISIBLE
-        clubName.text="Menu"
+        clubName.text="Orders"
         setActionBarClickListeners()
 
         clubId = intent.getStringExtra(MapsActivity.PLACE_ID_KEY)!!
@@ -79,7 +79,7 @@ class ManageMenuActivity : AppCompatActivity(){
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    
+
                 }
 
             })
