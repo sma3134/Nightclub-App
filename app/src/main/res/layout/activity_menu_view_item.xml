@@ -1,0 +1,42 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/orderCardView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    android:elevation="20dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/orderTime"
+            android:text="MOnday"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:layout_margin="5dp" />
+
+        <LinearLayout
+            android:layout_below="@+id/orderTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:id="@+id/descriptionLayout"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/orderStatus"
+            android:layout_below="@id/descriptionLayout"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:layout_margin="5dp"/>
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

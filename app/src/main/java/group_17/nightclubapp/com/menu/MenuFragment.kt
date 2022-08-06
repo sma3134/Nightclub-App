@@ -33,7 +33,7 @@ class MenuFragment : Fragment() {
 
     private lateinit var menuAdapter: MenuArrayAdapter
     private lateinit var mListView : ListView
-    private lateinit var menuItems : MutableList<MenuItem>
+    private lateinit var menuItems : ArrayList<MenuItem>
     private lateinit var menuViewModel: MenuViewModel
     private lateinit var quantityText : TextView
     private lateinit var imageView : ImageView
@@ -70,7 +70,7 @@ class MenuFragment : Fragment() {
         quantityText = view.findViewById(R.id.totalText)
         checkoutButton = view.findViewById(R.id.checkoutBtn)
         imageView = view.findViewById(R.id.cartImage)
-        menuItems = mutableListOf()
+        menuItems = arrayListOf()
 
         initMenu()
 

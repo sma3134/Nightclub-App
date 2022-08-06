@@ -14,7 +14,7 @@ class MenuViewModel : ViewModel() {
 
 //  problematic -> make it a map
 //    MutableList
-    private val _itemList = MutableLiveData<MutableList<CartItem>>()
+    private val _itemList = MutableLiveData<ArrayList<CartItem>>()
     val itemList = _itemList
 
     fun setPrice(price : Double){
@@ -25,7 +25,7 @@ class MenuViewModel : ViewModel() {
         _totalQuantity.value = quantity
     }
 // MutableList
-    fun setItemList(newList : MutableList<CartItem>){
+    fun setItemList(newList : ArrayList<CartItem>){
         _itemList.value = newList
     }
 

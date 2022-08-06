@@ -5,16 +5,21 @@
       <map>
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/drawable-v24/edit_text_background.xml" value="0.112" />
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/activity_checkout.xml" value="0.1" />
+        <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/activity_manage_menu.xml" value="0.12386018237082067" />
+        <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/activity_manage_request.xml" value="0.22327898550724637" />
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/activity_maps.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/activity_menu_view_item.xml" value="0.268" />
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/checkout_dialog.xml" value="0.17857142857142858" />
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/checkout_view_item.xml" value="0.3" />
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/fragment_checkout.xml" value="0.21105072463768115" />
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/fragment_home.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/fragment_menu.xml" value="0.268" />
+        <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/fragment_request.xml" value="0.2223731884057971" />
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/homelistview_layout.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/landing_action_bar.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/menu_dialog.xml" value="0.268" />
-        <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/menu_view_item.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/menu_view_item.xml" value="0.3518987341772152" />
+        <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/layout/request_layout_adapter_item.xml" value="0.36" />
         <entry key="..\:/Users/L/AndroidStudioProjects/Nightclub-App/app/src/main/res/xml/root_preferences.xml" value="0.17857142857142858" />
         <entry key="..\:/Users/Rick/Documents/GitHub/Nightclub-App/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/Rick/Documents/GitHub/Nightclub-App/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
