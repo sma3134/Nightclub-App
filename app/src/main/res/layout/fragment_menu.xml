@@ -62,7 +62,7 @@
             android:id="@+id/checkoutBtn"
             android:text="@string/checkout"
             android:backgroundTint="@null"
-            style="@style/black_button"/>
+            />
     </LinearLayout>
 
 </FrameLayout>

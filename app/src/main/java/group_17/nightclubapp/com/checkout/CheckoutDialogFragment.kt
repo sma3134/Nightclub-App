@@ -5,7 +5,9 @@ import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import group_17.nightclubapp.com.R
 import group_17.nightclubapp.com.menu.CartItem
@@ -49,7 +51,7 @@ class CheckoutDialogFragment : DialogFragment() {
 
         checkoutList = view.findViewById(R.id.checkoutList)
 
-        checkoutListAdapter = CheckoutArrayAdapter(requireActivity(), itemList)
+        checkoutListAdapter = CheckoutArrayAdapter(requireActivity(), requireActivity(), itemList)
         checkoutList.adapter = checkoutListAdapter
 
         checkoutList = view.findViewById(R.id.checkoutList)
@@ -81,16 +83,19 @@ class CheckoutDialogFragment : DialogFragment() {
             currentItems[item.itemName!!] = item.itemQuantity!!
         }
 
-        val order = Order(clubId = clubId, orderQuantity = menuViewModel.totalQuantity.value,
-            orderTotal = menuViewModel.totalPrice.value, orderItems = currentItems, complete = false, orderTime = Calendar.getInstance().timeInMillis  )
-
-//        Log.d("checkout", order.toString())
-
         menuViewModel.setQuantity(0)
-        menuViewModel.setItemList(mutableListOf())
+        menuViewModel.setItemList(arrayListOf())
         menuViewModel.setPrice(0.0)
 
-        daoOrders.add(order)
+        val ref = daoOrders.add()
+        val orderId = ref.key
+
+        val order = Order(clubId = clubId, orderId = orderId, orderQuantity = menuViewModel.totalQuantity.value,
+            orderTotal = menuViewModel.totalPrice.value, orderItems = currentItems, complete = false, orderTime = Calendar.getInstance().timeInMillis  )
+
+        Toast.makeText(requireActivity(), "Your Order ID: $orderId", Toast.LENGTH_LONG).show()
+
+        ref.setValue(order)
 
     }
 

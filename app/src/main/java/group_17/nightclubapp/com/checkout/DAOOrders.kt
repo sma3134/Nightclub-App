@@ -15,12 +15,18 @@ class DAOOrders {
         databaseReference = firebase.getReference(Order::class.java.simpleName)
     }
 
-    fun add(order: Order): Task<Void> {
-        return databaseReference.push().setValue(order)
+    fun add(): DatabaseReference {
+//        return databaseReference.push().setValue(order)
+        return databaseReference.push()
     }
+
+    fun update(orderId : String): DatabaseReference {
+        return databaseReference.child(orderId)
+    }
+
 
     fun getOrders(clubId : String): Query {
 //      Check if this is the right way to fetch
-        return databaseReference.orderByChild("orderTime").equalTo(clubId)
+        return databaseReference.orderByKey()
     }
 }

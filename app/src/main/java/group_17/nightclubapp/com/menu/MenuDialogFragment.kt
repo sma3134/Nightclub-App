@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import group_17.nightclubapp.com.R
+import java.util.concurrent.CopyOnWriteArrayList
 
 class MenuDialogFragment : DialogFragment() {
 
@@ -67,6 +68,8 @@ class MenuDialogFragment : DialogFragment() {
             currentCart = arrayListOf()
         }
 
+        val iterator = currentCart.listIterator(0)
+
         Log.d("mutablelive",currentQuantity.toString())
 
         val builder = AlertDialog.Builder(requireContext())
@@ -81,22 +84,40 @@ class MenuDialogFragment : DialogFragment() {
 //              TODO: java.util.ConcurrentModificationException in this iterator when adding too many items
 //              WILL CRASH IF YOU TRY TO ADD 3 items lol
 
-                val iterator = currentCart.listIterator()
-//
+                var index = 0
+                var newQuantity = 0
+
+
+                var item: CartItem? = null
+
                 for(cartItem in iterator) {
 //                  problem
                     if(cartItem.itemName == name){
 //                        cartItem.itemQuantity!!
-                        cartItem.itemQuantity = cartItem.itemQuantity!! + Integer.parseInt(editText.text.toString())
+//                        cartItem.itemQuantity = cartItem.itemQuantity!! + Integer.parseInt(editText.text.toString())
+                        newQuantity = cartItem.itemQuantity!!+ Integer.parseInt(editText.text.toString())
                     }else{
-                        val item = CartItem(itemName = name, itemPrice = price, itemQuantity = Integer.parseInt(editText.text.toString()), itemId = id)
-                        currentCart.add(item)
+                        item = CartItem(itemName = name, itemPrice = price, itemQuantity = Integer.parseInt(editText.text.toString()), itemId = id)
+//                        currentCart.add(item)
+                        index++
                     }
+
                 }
 
-                if(currentCart.size == 0){
+                if (item != null) {
+                    currentCart.add(item)
+                    Log.d("checkout", "now here")
+                }
+
+                if (newQuantity != 0){
+                    currentCart[index].itemQuantity = newQuantity
+                }
+
+
+                if(currentCart.size == 0 ){
                     val item = CartItem(itemName = name, itemPrice = price, itemQuantity = Integer.parseInt(editText.text.toString()),itemId = id)
                     currentCart.add(item)
+                    Log.d("checkout", currentCart.toString())
                 }
 
 
@@ -124,5 +145,6 @@ class MenuDialogFragment : DialogFragment() {
 
         return builder.create()
     }
+
 
 }
