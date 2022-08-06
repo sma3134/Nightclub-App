@@ -57,18 +57,12 @@ class MenuDialogFragment : DialogFragment() {
         var currentQuantity = menuViewModel.totalQuantity.value
         var currentAmount = menuViewModel.totalPrice.value
 
-        var currentCart = menuViewModel.itemList.value
+        var currentCart = menuViewModel.itemList.value ?: arrayListOf()
 
         if(currentAmount == null && currentQuantity == null){
             currentAmount = 0.0
             currentQuantity = 0
         }
-
-        if (currentCart == null){
-            currentCart = arrayListOf()
-        }
-
-        val iterator = currentCart.listIterator(0)
 
         Log.d("mutablelive",currentQuantity.toString())
 
@@ -87,43 +81,45 @@ class MenuDialogFragment : DialogFragment() {
                 var index = 0
                 var newQuantity = 0
 
+                currentCart = menuViewModel.itemList.value ?: arrayListOf()
 
                 var item: CartItem? = null
-
-                for(cartItem in iterator) {
-//                  problem
+                for(cartItem in currentCart!!.listIterator(0)) {
                     if(cartItem.itemName == name){
 //                        cartItem.itemQuantity!!
 //                        cartItem.itemQuantity = cartItem.itemQuantity!! + Integer.parseInt(editText.text.toString())
+                        println("Debug here!!!")
                         newQuantity = cartItem.itemQuantity!!+ Integer.parseInt(editText.text.toString())
-                    }else{
-                        item = CartItem(itemName = name, itemPrice = price, itemQuantity = Integer.parseInt(editText.text.toString()), itemId = id)
-//                        currentCart.add(item)
+                        break
+                    }
+                    else {
                         index++
                     }
 
                 }
 
+                if (newQuantity == 0) {
+                    item = CartItem(itemName = name, itemPrice = price, itemQuantity = Integer.parseInt(editText.text.toString()), itemId = id)
+                    index++
+                } else {
+                    currentCart!![index].itemQuantity = newQuantity
+                }
+
                 if (item != null) {
-                    currentCart.add(item)
+                    currentCart!!.add(item)
                     Log.d("checkout", "now here")
                 }
 
-                if (newQuantity != 0){
-                    currentCart[index].itemQuantity = newQuantity
-                }
-
-
-                if(currentCart.size == 0 ){
+                if(currentCart!!.size == 0 ){
                     val item = CartItem(itemName = name, itemPrice = price, itemQuantity = Integer.parseInt(editText.text.toString()),itemId = id)
-                    currentCart.add(item)
+                    currentCart!!.add(item)
                     Log.d("checkout", currentCart.toString())
                 }
 
 
                 menuViewModel.setQuantity(currentQuantity!!)
                 menuViewModel.setPrice(currentAmount!!)
-                menuViewModel.setItemList(currentCart)
+                menuViewModel.setItemList(currentCart!!)
 
             }
             .setNeutralButton("Cancel") { _, _ ->
