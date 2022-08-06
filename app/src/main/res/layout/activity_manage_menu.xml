@@ -9,7 +9,11 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/orderList"/>
+        android:id="@+id/orderList"
+        android:padding="10dp"
+        android:divider="@null"
+        android:dividerHeight="8dp"
+        android:clipToPadding="false"/>
 
 
 </LinearLayout>
