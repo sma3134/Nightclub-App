@@ -30,9 +30,6 @@ class MenuArrayAdapter(private val mFragmentManager : FragmentManager, private v
         val textName = view.findViewById<TextView>(R.id.itemName)
         val textPrice = view.findViewById<TextView>(R.id.itemPrice)
         val textDescription = view.findViewById<TextView>(R.id.itemDescription)
-        val imageView = view.findViewById<ImageView>(R.id.itemImage)
-
-//        Log.d("ItemAdapter", itemList[p0].toString())
 
         textName.text = itemList[p0].itemName
         textPrice.text = "$" + itemList[p0].itemPrice.toString()
