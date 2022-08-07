@@ -17,7 +17,7 @@ import group_17.nightclubapp.com.menu.CartItem
 import group_17.nightclubapp.com.menu.MenuItem
 import group_17.nightclubapp.com.menu.MenuViewModel
 
-class CheckoutArrayAdapter(private val mFragmentManager : FragmentActivity, private val context : Context, private val itemList : ArrayList<CartItem>) : BaseAdapter() {
+class CheckoutArrayAdapter(private val mFragmentManager : FragmentActivity, private val context : Context, private var itemList : ArrayList<CartItem>) : BaseAdapter() {
     override fun getCount(): Int {
         return itemList.size
     }
@@ -42,11 +42,23 @@ class CheckoutArrayAdapter(private val mFragmentManager : FragmentActivity, priv
         val textQuantity = view.findViewById<EditText>(R.id.itemQuantity)
         val increaseQuantity = view.findViewById<Button>(R.id.increaseQuantity)
         val decreaseQuantity = view.findViewById<Button>(R.id.decreaseQuantity)
+        val deleteBtn = view.findViewById<Button>(R.id.deleteBtn)
 
         textName.text = itemList[p0].itemName
         textPrice.text = "$" + (itemList[p0].itemPrice?.times(itemList[p0].itemQuantity!!)).toString()
         textQuantity.setText(itemList[p0].itemQuantity.toString())
         Log.d("checkout", itemList.toString())
+
+        deleteBtn.setOnClickListener {
+            val updatedQuantity = menuViewModel.totalQuantity.value?.minus(itemList[p0].itemQuantity!!)
+            val updatedList = itemList.apply{removeAt(p0)}
+//            Log.d("checkoutd", updatedList.toString())
+
+            menuViewModel.setItemList(updatedList)
+            menuViewModel.setQuantity(updatedQuantity!!)
+            replace(updatedList)
+            notifyDataSetChanged()
+        }
 
         increaseQuantity.setOnClickListener {
             var newQuantity = Integer.parseInt(textQuantity.text.toString()).plus(1)
@@ -90,6 +102,10 @@ class CheckoutArrayAdapter(private val mFragmentManager : FragmentActivity, priv
         }
 
         return view
+    }
+
+    fun replace(newList : ArrayList<CartItem>){
+        itemList = newList
     }
 
 }
