@@ -87,7 +87,7 @@ class MenuFragment : Fragment() {
 
         checkoutButton.setOnClickListener {
 
-            if (menuViewModel.itemList.value == null){
+            if (menuViewModel.totalQuantity.value == 0){
                 val toast = Toast.makeText(requireContext(), "Add items to your cart!", Toast.LENGTH_LONG)
                 toast.show()
                 Log.d("toastie", "Hi")
@@ -114,7 +114,7 @@ class MenuFragment : Fragment() {
 
         imageView.setOnClickListener {
 
-            if (menuViewModel.itemList.value == null) {
+            if (menuViewModel.totalQuantity.value == 0) {
                 val toast =
                     Toast.makeText(requireContext(), "Add items to your cart!", Toast.LENGTH_LONG)
                 toast.show()

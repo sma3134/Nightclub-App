@@ -50,15 +50,13 @@ class CheckoutDialogFragment : DialogFragment() {
         itemList = arrayListOf()
         itemList = menuViewModel.itemList.value!!
 
-        Log.d("checkout", itemList.toString())
+//        Log.d("checkout", itemList.toString())
 
         checkoutList = view.findViewById(R.id.checkoutList)
 
         checkoutListAdapter = CheckoutArrayAdapter(requireActivity(), requireActivity(), itemList)
         checkoutList.adapter = checkoutListAdapter
-
-        checkoutList = view.findViewById(R.id.checkoutList)
-
+//        checkoutList = view.findViewById(R.id.checkoutList)
 
         val builder = AlertDialog.Builder(requireContext()).setView(view)
             .setNegativeButton("Checkout"){_,_ ->
@@ -70,11 +68,6 @@ class CheckoutDialogFragment : DialogFragment() {
 
         return builder.create()
     }
-
-//  [itemId, itemId]
-//  itemId -> {quantity: Int, total: Double}
-
-//  for now make it so that we only have total quantity and price
 
     fun createOrder(){
         val currentItems = hashMapOf<String, Int>()
