@@ -8,6 +8,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import group_17.nightclubapp.com.R
 import group_17.nightclubapp.com.menu.CartItem
@@ -22,7 +23,7 @@ class CheckoutDialogFragment : DialogFragment() {
     private lateinit var checkoutListAdapter : CheckoutArrayAdapter
     private lateinit var menuViewModel : MenuViewModel
     private lateinit var daoOrders: DAOOrders
-    lateinit var itemList : MutableList<CartItem>
+    lateinit var itemList : ArrayList<CartItem>
     var clubId : String? = ""
 
     companion object{
@@ -46,8 +47,10 @@ class CheckoutDialogFragment : DialogFragment() {
         menuViewModel = ViewModelProvider(requireActivity()).get(MenuViewModel::class.java)
         daoOrders = DAOOrders()
 
-        itemList = mutableListOf()
+        itemList = arrayListOf()
         itemList = menuViewModel.itemList.value!!
+
+        Log.d("checkout", itemList.toString())
 
         checkoutList = view.findViewById(R.id.checkoutList)
 
@@ -56,9 +59,6 @@ class CheckoutDialogFragment : DialogFragment() {
 
         checkoutList = view.findViewById(R.id.checkoutList)
 
-        if (clubId != null) {
-            Log.d("checkout", clubId!!)
-        }
 
         val builder = AlertDialog.Builder(requireContext()).setView(view)
             .setNegativeButton("Checkout"){_,_ ->

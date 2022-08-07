@@ -17,7 +17,7 @@ import group_17.nightclubapp.com.menu.CartItem
 import group_17.nightclubapp.com.menu.MenuItem
 import group_17.nightclubapp.com.menu.MenuViewModel
 
-class CheckoutArrayAdapter(private val mFragmentManager : FragmentActivity, private val context : Context, private val itemList : MutableList<CartItem>) : BaseAdapter() {
+class CheckoutArrayAdapter(private val mFragmentManager : FragmentActivity, private val context : Context, private val itemList : ArrayList<CartItem>) : BaseAdapter() {
     override fun getCount(): Int {
         return itemList.size
     }
@@ -35,8 +35,7 @@ class CheckoutArrayAdapter(private val mFragmentManager : FragmentActivity, priv
 
         val menuViewModel = ViewModelProvider(mFragmentManager).get(MenuViewModel::class.java)
 
-        var currentQuantity = menuViewModel.totalQuantity.value
-
+//        var currentQuantity = menuViewModel.totalQuantity.value
 
         val textName = view.findViewById<TextView>(R.id.itemName)
         val textPrice = view.findViewById<TextView>(R.id.totalItemPrice)
@@ -47,16 +46,21 @@ class CheckoutArrayAdapter(private val mFragmentManager : FragmentActivity, priv
         textName.text = itemList[p0].itemName
         textPrice.text = "$" + (itemList[p0].itemPrice?.times(itemList[p0].itemQuantity!!)).toString()
         textQuantity.setText(itemList[p0].itemQuantity.toString())
-        Log.d("checkout", currentQuantity.toString())
+        Log.d("checkout", itemList.toString())
 
         increaseQuantity.setOnClickListener {
             var newQuantity = Integer.parseInt(textQuantity.text.toString()).plus(1)
             var newTotal = itemList[p0].itemPrice?.times(newQuantity!!)
 //            itemList[p0].itemQuantity = newQuantity
 //            itemList[p0].itemPrice = newTotal
+            var currentQuantity = menuViewModel.totalQuantity.value
 
             textQuantity.setText(newQuantity.toString())
             textPrice.text = "$" + String.format("%.2f", newTotal)
+
+
+            itemList[p0].itemQuantity = newQuantity
+            menuViewModel.setItemList(itemList)
 
             if (currentQuantity != null) {
                 menuViewModel.setQuantity(currentQuantity + 1)
@@ -67,9 +71,15 @@ class CheckoutArrayAdapter(private val mFragmentManager : FragmentActivity, priv
             if (itemList[p0].itemQuantity!! > 1 && Integer.parseInt(textQuantity.text.toString()) > 1){
                 var newQuantity = Integer.parseInt(textQuantity.text.toString()).minus(1)
                 var newTotal = itemList[p0].itemPrice?.times(newQuantity!!)
+                var currentQuantity = menuViewModel.totalQuantity.value
+
 
                 textQuantity.setText(newQuantity.toString())
                 textPrice.text = "$" + String.format("%.2f", newTotal)
+
+                itemList[p0].itemQuantity = newQuantity
+
+                menuViewModel.setItemList(itemList)
 
                 if (currentQuantity != null) {
                     menuViewModel.setQuantity(currentQuantity - 1)
