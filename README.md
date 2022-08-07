@@ -6,7 +6,7 @@ If you wish to run the app you will need to add your own Rapid and Google Map AP
 MAPS_API_KEY="GOOGLE MAP KEY HERE"
 RAPID_API_KEY="RAPID API KEY HERE"
 
-Follow this to recieve rapid api key https://rapidapi.com/blog/build-android-app-with-api/
+Go here to receive rapid api key https://rapidapi.com/deezerdevs/api/deezer-1
 
 Help Recieved from:
 Firebase: https://www.youtube.com/watch?v=741QCymuky4&t=643s + https://www.youtube.com/watch?v=8I5gCLaS25w
