@@ -69,14 +69,9 @@ class MenuDialogFragment : DialogFragment() {
         val builder = AlertDialog.Builder(requireContext())
             .setView(view)
             .setNegativeButton("Add to cart") { _, _ ->
-//                do something with sharedviewmodel here
 
                 currentQuantity = currentQuantity!! + Integer.parseInt(editText.text.toString())
                 currentAmount = currentAmount!! + Integer.parseInt(editText.text.toString()) * price!!
-
-
-//              TODO: java.util.ConcurrentModificationException in this iterator when adding too many items
-//              WILL CRASH IF YOU TRY TO ADD 3 items lol
 
                 var index = 0
                 var newQuantity = 0
